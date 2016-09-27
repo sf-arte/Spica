@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire"
 github "SwiftyJSON/SwiftyJSON"
+github "OAuthSwift/OAuthSwift" "swift3.0"

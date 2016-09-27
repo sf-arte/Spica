@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire" "4.0.1"
+github "OAuthSwift/OAuthSwift" "0e91d7e155b57225cf12585be928d2ae47306db5"
 github "SwiftyJSON/SwiftyJSON" "3.1.0"
