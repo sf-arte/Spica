@@ -9,3 +9,5 @@ Flickrの写真の位置情報から人気のある場所を推測して、リ�
 * その地点で撮影された画像の表示
 
 ### インターフェース
+![メインUI](https://github.com/sf-arte/Spica/blob/master/doc_files/mainUI.png)
+![リストUI](https://github.com/sf-arte/Spica/blob/master/doc_files/listUI.png)
