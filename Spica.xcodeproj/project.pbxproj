@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B6878FE1D9A37BC00C7BE5D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B6878FC1D9A37BC00C7BE5D /* SwiftyJSON.framework */; };
+		6B07FBBF1D9B848D007B7FFC /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */; };
+		6B07FBC11D9B8629007B7FFC /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC01D9B8629007B7FFC /* Flickr.swift */; };
+		6B07FBC31D9BA508007B7FFC /* key.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B07FBC21D9BA508007B7FFC /* key.txt */; };
 		6B6879071D9A3BDD00C7BE5D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */; };
-		6B68790D1D9A4B0D00C7BE5D /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B68790C1D9A4B0D00C7BE5D /* OAuthSwift.framework */; };
 		6BCE2D101D9A2CCB000CB38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCE2D0F1D9A2CCB000CB38D /* AppDelegate.swift */; };
 		6BCE2D151D9A2CCB000CB38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D131D9A2CCB000CB38D /* Main.storyboard */; };
 		6BCE2D171D9A2CCB000CB38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D161D9A2CCB000CB38D /* Assets.xcassets */; };
@@ -17,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B07FBBC1D9B847E007B7FFC /* iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOS; path = Carthage/Build/iOS; sourceTree = "<group>"; };
+		6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
+		6B07FBC01D9B8629007B7FFC /* Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickr.swift; sourceTree = "<group>"; };
+		6B07FBC21D9BA508007B7FFC /* key.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.txt; sourceTree = SOURCE_ROOT; };
 		6B6878FB1D9A37BC00C7BE5D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		6B6878FC1D9A37BC00C7BE5D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = ../Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -36,8 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B68790D1D9A4B0D00C7BE5D /* OAuthSwift.framework in Frameworks */,
-				6B6878FE1D9A37BC00C7BE5D /* SwiftyJSON.framework in Frameworks */,
+				6B07FBBF1D9B848D007B7FFC /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +51,8 @@
 		6B6878FA1D9A37BC00C7BE5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */,
+				6B07FBBC1D9B847E007B7FFC /* iOS */,
 				6B68790C1D9A4B0D00C7BE5D /* OAuthSwift.framework */,
 				6B6879081D9A4AF900C7BE5D /* Cartfile.resolved */,
 				6B6879091D9A4AF900C7BE5D /* Carthage */,
@@ -78,6 +84,8 @@
 			children = (
 				6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */,
 				6BCE2D131D9A2CCB000CB38D /* Main.storyboard */,
+				6B07FBC01D9B8629007B7FFC /* Flickr.swift */,
+				6B07FBC21D9BA508007B7FFC /* key.txt */,
 				6BCE2D211D9A2D59000CB38D /* Supporting Files */,
 			);
 			path = Spica;
@@ -157,6 +165,7 @@
 			files = (
 				6BCE2D1A1D9A2CCB000CB38D /* LaunchScreen.storyboard in Resources */,
 				6BCE2D171D9A2CCB000CB38D /* Assets.xcassets in Resources */,
+				6B07FBC31D9BA508007B7FFC /* key.txt in Resources */,
 				6BCE2D151D9A2CCB000CB38D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,7 +179,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework\n$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
 			);
 			outputPaths = (
@@ -187,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BCE2D101D9A2CCB000CB38D /* AppDelegate.swift in Sources */,
+				6B07FBC11D9B8629007B7FFC /* Flickr.swift in Sources */,
 				6B6879071D9A3BDD00C7BE5D /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,6 +320,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DB5FPWGTP9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Spica/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.Spica";
@@ -324,6 +337,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DB5FPWGTP9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Spica/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.Spica";

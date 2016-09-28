@@ -1,1 +1,0 @@
-* SwiftyJSON+AlamofireでFlickrのAPIを使って写真の情報を取得する．
