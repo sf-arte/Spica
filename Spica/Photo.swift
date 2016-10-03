@@ -6,17 +6,18 @@
 //  Copyright © 2016年 ARTE Co., Ltd. All rights reserved.
 //
 
+import SwiftyJSON
+
 struct Photo {
-    var id : Int
-    var owner : String
-    var secret : String
-    var server : Int
-    var farm : Int
-    var title : String
+    let id : Int
+    let owner : String
+    let secret : String
+    let server : Int
+    let farm : Int
+    let title : String
     
     private var baseURL : String {
-        let str = ("https://farm" + String(farm) + ".staticflickr.com/") + (String(server) + "/" + String(id)) + ("_" + secret)
-        return str
+        return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)"
     }
     
     var largeImageURL : String {
@@ -25,6 +26,15 @@ struct Photo {
     
     var iconImageURL : String {
         return baseURL + "_s.jpg"
+    }
+    
+    init(json: JSON){
+        id = json["id"].intValue
+        owner = json["owner"].stringValue
+        secret = json["secret"].stringValue
+        server = json["server"].intValue
+        farm = json["farm"].intValue
+        title = json["title"].stringValue
     }
     
 }

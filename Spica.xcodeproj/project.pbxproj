@@ -11,6 +11,7 @@
 		6B07FBC11D9B8629007B7FFC /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC01D9B8629007B7FFC /* Flickr.swift */; };
 		6B07FBC31D9BA508007B7FFC /* key.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B07FBC21D9BA508007B7FFC /* key.txt */; };
 		6B07FBC51D9BCACE007B7FFC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC41D9BCACE007B7FFC /* Photo.swift */; };
+		6B61679B1DA220860009E6F8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */; };
 		6B6879071D9A3BDD00C7BE5D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */; };
 		6BCE2D101D9A2CCB000CB38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCE2D0F1D9A2CCB000CB38D /* AppDelegate.swift */; };
 		6BCE2D151D9A2CCB000CB38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D131D9A2CCB000CB38D /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		6B07FBC01D9B8629007B7FFC /* Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickr.swift; sourceTree = "<group>"; };
 		6B07FBC21D9BA508007B7FFC /* key.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.txt; sourceTree = SOURCE_ROOT; };
 		6B07FBC41D9BCACE007B7FFC /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		6B6878FB1D9A37BC00C7BE5D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		6B6878FC1D9A37BC00C7BE5D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = ../Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B61679B1DA220860009E6F8 /* SwiftyJSON.framework in Frameworks */,
 				6B07FBBF1D9B848D007B7FFC /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +56,7 @@
 		6B6878FA1D9A37BC00C7BE5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */,
 				6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */,
 				6B07FBBC1D9B847E007B7FFC /* iOS */,
 				6B68790C1D9A4B0D00C7BE5D /* OAuthSwift.framework */,
@@ -183,6 +187,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
 			);

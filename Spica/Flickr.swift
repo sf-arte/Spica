@@ -8,9 +8,14 @@
 
 import Foundation
 import OAuthSwift
+import SwiftyJSON
 
 class Flickr {
+    // MARK: - 定数
+    
     private let apiURL = "https://api.flickr.com/services/rest"
+    
+    // MARK: - 構造体
     
     private struct OAuthToken {
         let token : String
@@ -24,7 +29,7 @@ class Flickr {
         let authorizeURL = "https://www.flickr.com/services/oauth/authorize"
         let accessTokenURL = "https://www.flickr.com/services/oauth/access_token"
         
-        init? () {
+        init?() {
             // temporarily loading from .txt file
             guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
             do {
@@ -41,6 +46,12 @@ class Flickr {
         }
     }
     
+    struct Coordinates {
+        var latitude: Double
+        var longitude: Double
+    }
+    
+    // MARK: - プロパティ
     
     private let params = OAuthParams()
     
@@ -58,6 +69,15 @@ class Flickr {
     
     private var oauthToken : OAuthToken? = nil
     
+    // MARK: メソッド
+    
+    /**
+     flickrのユーザーアカウントを表示して、アプリの認証をする。成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。
+     TODO: 失敗した場合の処理。
+     - parameter coordinates: 写真を検索する際の中心座標。
+     - parameter accuracy: 検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。
+     - returns: 成功したかどうかを返す。
+     */
     
     func authorize() -> Bool {
         var succeeded = false
@@ -75,12 +95,16 @@ class Flickr {
         return succeeded
     }
     
-    struct Coordinates {
-        var latitude: Double
-        var longitude: Double
-    }
     
-    func getPhotos(coordinates: Coordinates, accuracy: Int) {
+    
+    /**
+     指定された座標周辺の写真をJSON形式で取得し、パースする。パースしたデータはPhotoクラスの配列に格納される。
+     TODO: 失敗時の処理。
+     - parameter coordinates: 写真を検索する際の中心座標。
+     - parameter accuracy: 検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。
+    */
+    
+    func getPhotos(coordinates: Coordinates, accuracy: Int, handler: @escaping ([Photo]) -> ()) {
         guard let params = params else { fatalError("params is nil.") }
         guard let oauthSwift = oauthSwift else { fatalError("oauthSwift is nil.") }
         
@@ -91,18 +115,31 @@ class Flickr {
                 "lon"      : coordinates.longitude,
                 "format"   : "json",
                 "accuracy" : accuracy,
-                "method"   : "flickr.photos.search"
+                "method"   : "flickr.photos.search",
+                "nojsoncallback" : 1
             ],
             headers: nil,
             success: { (data, response) in
-                let dataString = String(data: data, encoding: String.Encoding.utf8)
-                print(dataString)
+                let json = JSON(data: data)
+
+                let status = json["stat"].stringValue
+                if(status != "ok") {
+                    // FIXME: 何か表示する。
+                    printLog(json["message"].stringValue)
+                }
+                
+                handler(json["photos"]["photo"].arrayValue.map{ Photo(json: $0) })
             },
             failure: { error in
-                print(error)
+                // FIXME: 何か表示する。
+                printLog(error)
             }
         )
     
     }
     
+}
+
+func printLog(_ obj: Any) {
+    print("##Spica Log: \(obj)")
 }
