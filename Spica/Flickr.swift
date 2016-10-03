@@ -27,14 +27,11 @@ class Flickr {
         init? () {
             // temporarily loading from .txt file
             guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
-            var str : [String] = []
             do {
-                let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue)
-                text.enumerateLines { (line, ptr) in
-                    str.append(line)
-                }
-                consumerKey = str[0]
-                consumerSecret = str[1]
+                let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
+                let lines = text.components(separatedBy: CharacterSet.newlines)
+                consumerKey = lines[0]
+                consumerSecret = lines[1]
             } catch (let error) {
                 consumerKey = ""
                 consumerSecret = ""
@@ -48,14 +45,15 @@ class Flickr {
     private let params = OAuthParams()
     
     private lazy var oauthSwift : OAuth1Swift? = {
-        guard let par = self.params else { return nil }
-        return OAuth1Swift(
-            consumerKey: par.consumerKey,
-            consumerSecret: par.consumerSecret,
-            requestTokenUrl: par.requestTokenURL,
-            authorizeUrl: par.authorizeURL,
-            accessTokenUrl: par.accessTokenURL
-        )
+        return self.params.map{ (params) in
+            return OAuth1Swift(
+                consumerKey: params.consumerKey,
+                consumerSecret: params.consumerSecret,
+                requestTokenUrl: params.requestTokenURL,
+                authorizeUrl: params.authorizeURL,
+                accessTokenUrl: params.accessTokenURL
+            )
+        }
     }()
     
     private var oauthToken : OAuthToken? = nil
@@ -77,15 +75,20 @@ class Flickr {
         return succeeded
     }
     
-    func getPhotosForLocation(latitude: Double, longitude: Double, accuracy: Int) {
-        guard let par = params else { fatalError("params is nil.") }
-        guard let oauth = oauthSwift else { fatalError("oauthSwift is nil.") }
+    struct Coordinates {
+        var latitude: Double
+        var longitude: Double
+    }
+    
+    func getPhotos(coordinates: Coordinates, accuracy: Int) {
+        guard let params = params else { fatalError("params is nil.") }
+        guard let oauthSwift = oauthSwift else { fatalError("oauthSwift is nil.") }
         
-        _ = oauth.client.get(apiURL,
+        _ = oauthSwift.client.get(apiURL,
             parameters: [
-                "api_key"  : par.consumerKey,
-                "lat"      : latitude,
-                "lon"      : longitude,
+                "api_key"  : params.consumerKey,
+                "lat"      : coordinates.latitude,
+                "lon"      : coordinates.longitude,
                 "format"   : "json",
                 "accuracy" : accuracy,
                 "method"   : "flickr.photos.search"

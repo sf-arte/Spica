@@ -6,7 +6,7 @@
 //  Copyright © 2016年 ARTE Co., Ltd. All rights reserved.
 //
 
-struct PhotoData {
+struct Photo {
     var id : Int
     var owner : String
     var secret : String
@@ -15,17 +15,15 @@ struct PhotoData {
     var title : String
     
     private var baseURL : String {
-        var str = "https://farm" + String(farm) + ".staticflickr.com/"
-        str.append(String(server) + "/" + String(id))
-        str.append("_" + secret)
+        let str = ("https://farm" + String(farm) + ".staticflickr.com/") + (String(server) + "/" + String(id)) + ("_" + secret)
         return str
     }
     
-    var URLforLargeImage : String {
+    var largeImageURL : String {
         return baseURL + "_k.jpg"
     }
     
-    var URLforIconImage : String {
+    var iconImageURL : String {
         return baseURL + "_s.jpg"
     }
     

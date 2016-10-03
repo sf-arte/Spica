@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func search(_ sender: UIButton) {
-        fl.getPhotosForLocation(latitude: 35.0, longitude: 135.0, accuracy: 10)
+        fl.getPhotos(coordinates: Flickr.Coordinates(latitude: 35.0, longitude: 135.0), accuracy: 10)
     }
     
     var fl = Flickr()
