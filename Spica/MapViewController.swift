@@ -11,25 +11,55 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
+    /// MARK: 定数
+    private let AnnotationViewReuseIdentifier = "photo"
+    
+    /// MARK: プロパティ
+    
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
             mapView.delegate = self
         }
     }
     
+    var flickr : Flickr? = {
+        if let path = Bundle.main.path(forResource: "key", ofType: "txt") {
+            return Flickr(path: path)
+        }
+        return nil
+    }()
+    
+    /// MARK: メソッド
+    
+    /// 検索ボタンに対応するメソッド
     @IBAction func search(_ sender: UIButton) {
-        fl.getPhotos(coordinates: Flickr.Coordinates(latitude: 35.0, longitude: 135.0), accuracy: 10) { photos in
+        let centerCoordinate = mapView.centerCoordinate
+        
+        mapView.removeAnnotations(mapView.annotations)
+        flickr?.getPhotos(coordinates: Coordinates(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude), accuracy: 10) { photos in
             for photo in photos {
-                printLog(photo)
+               self.mapView.addAnnotation(photo)
             }
         }
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
-    var fl = Flickr()
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
+       
+        guard let photo = annotation as? Photo else { fatalError() }
+        if let url = photo.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
+            view.image = UIImage(data: iconImageData)
+        } else {
+            printLog("Couldn't show icon image.")
+        }
+        
+        return view
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fl.authorize()
+        flickr?.authorize()
         // Do any additional setup after loading the view.
     }
 

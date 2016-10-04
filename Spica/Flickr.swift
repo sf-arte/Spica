@@ -41,18 +41,15 @@ class Flickr {
         let requestTokenURL = "https://www.flickr.com/services/oauth/request_token"
         let authorizeURL = "https://www.flickr.com/services/oauth/authorize"
         let accessTokenURL = "https://www.flickr.com/services/oauth/access_token"
-        
-        init?() {
+
+        init?(path: String) {
             // temporarily loading from .txt file
-            guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
             do {
                 let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 let lines = text.components(separatedBy: CharacterSet.newlines)
                 consumerKey = lines[0]
                 consumerSecret = lines[1]
             } catch (let error) {
-                consumerKey = ""
-                consumerSecret = ""
                 // FIXIT: なんかする
                 print(error)
                 return nil
@@ -60,19 +57,11 @@ class Flickr {
         }
     }
     
-    /// 緯度経度を組にした座標
-    struct Coordinates {
-        /// 緯度
-        var latitude: Double
-        
-        /// 経度
-        var longitude: Double
-    }
     
     // MARK: - プロパティ
-    private let params = OAuthParams()
+    private let params : OAuthParams?
     
-    private var oauthSwift : OAuth1Swift?
+    private var oauthSwift : OAuth1Swift
     
     private var oauthToken : OAuthToken?
     {
@@ -86,8 +75,9 @@ class Flickr {
     
     // MARK: Lifecycle
     /// イニシャライザ
-    init() {
-        guard let params = params else { return }
+    init?(path: String) {
+        params = OAuthParams(path: path)
+        guard let params = params else { return nil }
         
         oauthSwift = OAuth1Swift(
             consumerKey: params.consumerKey,
@@ -102,7 +92,7 @@ class Flickr {
         
         if let token = defaults.object(forKey: KeyForUserDefaults.oauthToken.rawValue) as? String,
             let secret = defaults.object(forKey: KeyForUserDefaults.oauthTokenSecret.rawValue) as? String {
-            oauthSwift?.client = OAuthSwiftClient(
+            oauthSwift.client = OAuthSwiftClient(
                 consumerKey: params.consumerKey,
                 consumerSecret: params.consumerSecret,
                 accessToken: token,
@@ -118,26 +108,21 @@ class Flickr {
      flickrのユーザーアカウントを表示して、アプリの認証をする。認証を既にしていた場合は処理を行わない。
      成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。
      
-     TODO: 失敗した場合の処理。
-     
-     - returns: 成功したかどうかを返す。認証を既にしていた場合、trueを返す。
+     TODO: 失敗した場合の処理
      */
     
-    func authorize() -> Bool {
-        if (oauthToken != nil) { return true }
-        var succeeded = false
-        oauthSwift?.authorizeWithCallbackURL(
+    func authorize() {
+        if (oauthToken != nil) { return }
+        // TODO: バージョンアップ
+        oauthSwift.authorizeWithCallbackURL(
             URL(string: "Spica://oauth-callback/flickr")!,
             success: { credential, response, parameters in
                 self.oauthToken = OAuthToken(token: credential.oauth_token, secret: credential.oauth_token_secret)
-                succeeded = true
             },
             failure: { error in
                 print(error.localizedDescription)
             }
         )
-        
-        return succeeded
     }
     
     
@@ -149,20 +134,22 @@ class Flickr {
      
      - parameter coordinates: 写真を検索する際の中心座標。
      - parameter accuracy: 検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。
+     - parameter handler: パースしたデータに対して実行する処理。
     */
     
     func getPhotos(coordinates: Coordinates, accuracy: Int, handler: @escaping ([Photo]) -> ()) {
         guard let params = params else { fatalError("params is nil.") }
-        guard let oauthSwift = oauthSwift else { fatalError("oauthSwift is nil.") }
         
         _ = oauthSwift.client.get(apiURL,
             parameters: [
-                "api_key"  : params.consumerKey,
-                "lat"      : coordinates.latitude,
-                "lon"      : coordinates.longitude,
-                "format"   : "json",
-                "accuracy" : accuracy,
-                "method"   : "flickr.photos.search",
+                "api_key"        : params.consumerKey,
+                "lat"            : coordinates.latitude,
+                "lon"            : coordinates.longitude,
+                "format"         : "json",
+                "accuracy"       : accuracy,
+                "method"         : "flickr.photos.search",
+                "extras"         : "geo,owner_name",
+                    "per_page"      : 10,   // デバッグ用
                 "nojsoncallback" : 1
             ],
             headers: nil,
@@ -175,7 +162,7 @@ class Flickr {
                     printLog(json["message"].stringValue)
                 }
                 
-                handler(json["photos"]["photo"].arrayValue.map{ Photo(json: $0) })
+                handler(json["photos"]["photo"].arrayValue.map{ self.decodePhotoJSON(json: $0) })
             },
             failure: { error in
                 // FIXME: 何か表示する。
@@ -186,6 +173,31 @@ class Flickr {
     }
     
 }
+
+extension Flickr {
+    func decodePhotoJSON(json: JSON) -> Photo {
+        let id = json["id"].intValue
+        let owner = json["owner"].stringValue
+        let ownerName = json["owner_name"].stringValue
+        let secret = json["secret"].stringValue
+        let server = json["server"].intValue
+        let farm = json["farm"].intValue
+        let title = json["title"].stringValue
+        let coordinates = Coordinates(latitude: json["latitude"].doubleValue, longitude: json["longitude"].doubleValue)
+   
+        return Photo(
+            id: id,
+            owner: owner,
+            ownerName: ownerName,
+            secret: secret,
+            server: server,
+            farm: farm,
+            photoTitle: title,
+            coordinate: coordinates
+        )
+    }
+}
+
 
 func printLog(_ obj: Any) {
     print("##Spica Log: \(obj)")
