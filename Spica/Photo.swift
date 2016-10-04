@@ -14,11 +14,18 @@ import SwiftyJSON
  
 */
 struct Photo {
+    /// 写真のユニークID
     let id : Int
+    
+    /// 写真の撮影者のユーザーID
     let owner : String
-    let secret : String
-    let server : Int
-    let farm : Int
+    
+    /// URL計算用
+    private let secret : String
+    private let server : Int
+    private let farm : Int
+    
+    /// 写真のタイトル
     let title : String
     
     private var baseURL : String {

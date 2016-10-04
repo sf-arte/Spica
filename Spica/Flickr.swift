@@ -62,7 +62,10 @@ class Flickr {
     
     /// 緯度経度を組にした座標
     struct Coordinates {
+        /// 緯度
         var latitude: Double
+        
+        /// 経度
         var longitude: Double
     }
     
@@ -82,6 +85,7 @@ class Flickr {
     }
     
     // MARK: Lifecycle
+    /// イニシャライザ
     init() {
         guard let params = params else { return }
         

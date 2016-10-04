@@ -9,28 +9,7 @@
     },
     {
       "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
-      "line": 65,
-      "symbol": "Flickr.Coordinates.latitude",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
-      "line": 66,
-      "symbol": "Flickr.Coordinates.longitude",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
-      "line": 85,
-      "symbol": "Flickr.init()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
-      "line": 186,
+      "line": 190,
       "symbol": "printLog(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
@@ -40,48 +19,6 @@
       "line": 12,
       "symbol": "MapViewController",
       "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
-      "line": 17,
-      "symbol": "Photo.id",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
-      "line": 18,
-      "symbol": "Photo.owner",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
-      "line": 19,
-      "symbol": "Photo.secret",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
-      "line": 20,
-      "symbol": "Photo.server",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
-      "line": 21,
-      "symbol": "Photo.farm",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
-      "line": 22,
-      "symbol": "Photo.title",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     }
   ],
