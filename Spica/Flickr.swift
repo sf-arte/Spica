@@ -10,24 +10,31 @@ import Foundation
 import OAuthSwift
 import SwiftyJSON
 
+/**
+ 
+ FlickrのAPIを呼ぶクラス
+ 
+ */
+
 class Flickr {
     // MARK: - 定数
-    
+    /// Flickr APIのURL
     private let apiURL = "https://api.flickr.com/services/rest"
     
-    // データ保存用のキー
+    /// データ保存用のキー
     private enum KeyForUserDefaults : String {
         case oauthToken = "OAuthToken"
         case oauthTokenSecret = "OAuthTokenSecret"
     }
     
     // MARK: - 構造体
-    
+    /// Flickrから返ってきたトークン
     private struct OAuthToken {
         let token : String
         let secret : String
     }
     
+    /// OAuth認証に必要なパラメータ
     private struct OAuthParams {
         let consumerKey : String
         let consumerSecret: String
@@ -46,19 +53,20 @@ class Flickr {
             } catch (let error) {
                 consumerKey = ""
                 consumerSecret = ""
+                // FIXIT: なんかする
                 print(error)
                 return nil
             }
         }
     }
     
+    /// 緯度経度を組にした座標
     struct Coordinates {
         var latitude: Double
         var longitude: Double
     }
     
     // MARK: - プロパティ
-    
     private let params = OAuthParams()
     
     private var oauthSwift : OAuth1Swift?
@@ -73,8 +81,7 @@ class Flickr {
         }
     }
     
-    // MARK: イニシャライザ
-    
+    // MARK: Lifecycle
     init() {
         guard let params = params else { return }
         
@@ -106,9 +113,9 @@ class Flickr {
     /**
      flickrのユーザーアカウントを表示して、アプリの認証をする。認証を既にしていた場合は処理を行わない。
      成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。
+     
      TODO: 失敗した場合の処理。
-     - parameter coordinates: 写真を検索する際の中心座標。
-     - parameter accuracy: 検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。
+     
      - returns: 成功したかどうかを返す。認証を既にしていた場合、trueを返す。
      */
     
@@ -133,7 +140,9 @@ class Flickr {
     
     /**
      指定された座標周辺の写真をJSON形式で取得し、パースする。パースしたデータはPhotoクラスの配列に格納される。
+     
      TODO: 失敗時の処理。未認証時認証。
+     
      - parameter coordinates: 写真を検索する際の中心座標。
      - parameter accuracy: 検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。
     */
