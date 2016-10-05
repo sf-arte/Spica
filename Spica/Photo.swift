@@ -74,3 +74,8 @@ extension Photo : MKAnnotation {
 }
 
 typealias Coordinates = CLLocationCoordinate2D
+
+func == (lhs: Coordinates, rhs: Coordinates) -> Bool{
+    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+}
+

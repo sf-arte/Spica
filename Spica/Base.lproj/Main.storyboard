@@ -19,26 +19,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Vum-c4-DXg"/>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rCA-6s-ebf">
-                                <frame key="frameInset" minX="288" minY="595" width="51" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="検索"/>
-                                <connections>
-                                    <action selector="search:" destination="qzi-PN-MNh" eventType="touchUpInside" id="mGM-VP-Eoi"/>
-                                </connections>
-                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QrO-Qc-43o">
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqx-kE-Yv5">
+                                <items>
+                                    <barButtonItem systemItem="refresh" id="KxU-fk-85J"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Yri-cb-YvE"/>
+                                    <barButtonItem systemItem="search" id="TTc-hq-Vqx">
+                                        <connections>
+                                            <action selector="search:" destination="qzi-PN-MNh" id="c5X-tj-0mh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="top" secondItem="NJC-Gd-45T" secondAttribute="bottom" id="A5N-XZ-Dx0"/>
-                            <constraint firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="D0p-kR-6DR"/>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="h4c-qP-O6E" secondAttribute="leading" id="HMI-3Z-eMR"/>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="d2Q-Bp-LIV"/>
+                            <constraint firstItem="QrO-Qc-43o" firstAttribute="centerY" secondItem="h4c-qP-O6E" secondAttribute="centerY" id="0GW-B8-gCL"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="Bhf-ak-5SK"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="top" secondItem="NJC-Gd-45T" secondAttribute="bottom" id="GuN-eS-PUP"/>
+                            <constraint firstItem="iqx-kE-Yv5" firstAttribute="leading" secondItem="Vum-c4-DXg" secondAttribute="leading" id="LQg-Yd-dNe"/>
+                            <constraint firstItem="iqx-kE-Yv5" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="OPt-xt-X81"/>
+                            <constraint firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="QCe-Qe-MYu"/>
+                            <constraint firstItem="iqx-kE-Yv5" firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="pVV-Nd-9bh"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="centerX" secondItem="QrO-Qc-43o" secondAttribute="centerX" id="qeZ-mm-Htx"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="h4c-qP-O6E" secondAttribute="leading" id="yb9-r4-64f"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Vum-c4-DXg" id="C83-BD-CPw"/>
+                        <outlet property="spinner" destination="QrO-Qc-43o" id="rdr-JN-TJN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICy-sB-IbH" userLabel="First Responder" sceneMemberID="firstResponder"/>

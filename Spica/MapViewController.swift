@@ -22,39 +22,81 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     var flickr : Flickr? = {
-        if let path = Bundle.main.path(forResource: "key", ofType: "txt") {
-            return Flickr(path: path)
-        }
-        return nil
+        guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
+        guard let params = Flickr.OAuthParams(path: path) else { return nil }
+        
+        return Flickr(params: params)
     }()
+    
+    /// Flickrから撮ってきた画像のデータ
+    private var imageDatas = [URL : Data]()
+    
+    /// 検索している中心座標
+    private var searchingCoordinate = Coordinates()
     
     /// MARK: メソッド
     
     /// 検索ボタンに対応するメソッド
-    @IBAction func search(_ sender: UIButton) {
+    @IBAction func search(_ sender: UIBarButtonItem) {
+        spinner?.startAnimating()
         let centerCoordinate = mapView.centerCoordinate
+        searchingCoordinate = centerCoordinate
+        printLog(centerCoordinate)
         
         mapView.removeAnnotations(mapView.annotations)
-        flickr?.getPhotos(coordinates: Coordinates(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude), accuracy: 10) { photos in
-            for photo in photos {
-               self.mapView.addAnnotation(photo)
+        flickr?.getPhotos(coordinates: Coordinates(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude), radius: 1.0) { [weak self] photos in
+            self?.fetchImage(photos: photos){
+                for photo in photos {
+                    printLog(photo.coordinate)
+                }
+                if let me = self, me.searchingCoordinate == centerCoordinate {
+                    me.mapView.addAnnotations(photos)
+                    me.mapView.showAnnotations(me.mapView.annotations, animated: true)
+                    me.spinner.stopAnimating()
+                }
             }
         }
-        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
+    /// MKAnnotationViewをカスタムする
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
        
-        guard let photo = annotation as? Photo else { fatalError() }
-        if let url = photo.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
-            view.image = UIImage(data: iconImageData)
+        guard let photo = annotation as? Photo,
+            let url = photo.iconImageURL else { fatalError() }
+        if let data = imageDatas[url] {
+            view.image = UIImage(data: data, scale: 2.0)
         } else {
-            printLog("Couldn't show icon image.")
+            printLog("Failed to get an icon image.")
         }
         
         return view
+    }
+    
+    /// PhotoクラスのiconImageURLで指定された画像を取ってくる。
+    ///
+    /// - parameter photos:     Photoの配列。
+    /// - parameter completion: 完了後に行う処理。
+    private func fetchImage(photos: [Photo], completion: @escaping () -> ()) {
+        imageDatas.removeAll()
+        
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        queue.async {
+            for photo in photos {
+                if let url = photo.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
+                    self.imageDatas[url] = iconImageData
+                } else {
+                    printLog("Couldn't fetch an icon image.")
+                }
+            }
+            
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
     }
 
     override func viewDidLoad() {

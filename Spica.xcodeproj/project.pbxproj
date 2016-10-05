@@ -94,6 +94,7 @@
 				6B07FBC01D9B8629007B7FFC /* Flickr.swift */,
 				6B07FBC21D9BA508007B7FFC /* key.txt */,
 				6BCE2D211D9A2D59000CB38D /* Supporting Files */,
+				6BDCC4191DA4D35700B5DE62 /* Tests */,
 			);
 			path = Spica;
 			sourceTree = "<group>";
@@ -107,6 +108,14 @@
 				6BCE2D1B1D9A2CCB000CB38D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6BDCC4191DA4D35700B5DE62 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

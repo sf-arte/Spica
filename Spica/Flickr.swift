@@ -35,7 +35,7 @@ class Flickr {
     }
     
     /// OAuth認証に必要なパラメータ
-    private struct OAuthParams {
+    struct OAuthParams {
         let consumerKey : String
         let consumerSecret: String
         let requestTokenURL = "https://www.flickr.com/services/oauth/request_token"
@@ -59,7 +59,7 @@ class Flickr {
     
     
     // MARK: - プロパティ
-    private let params : OAuthParams?
+    private let params : OAuthParams
     
     private var oauthSwift : OAuth1Swift
     
@@ -75,9 +75,9 @@ class Flickr {
     
     // MARK: Lifecycle
     /// イニシャライザ
-    init?(path: String) {
-        params = OAuthParams(path: path)
-        guard let params = params else { return nil }
+    init(params: OAuthParams) {
+        //guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
+        self.params = params
         
         oauthSwift = OAuth1Swift(
             consumerKey: params.consumerKey,
@@ -116,8 +116,8 @@ class Flickr {
         // TODO: バージョンアップ
         oauthSwift.authorizeWithCallbackURL(
             URL(string: "Spica://oauth-callback/flickr")!,
-            success: { credential, response, parameters in
-                self.oauthToken = OAuthToken(token: credential.oauth_token, secret: credential.oauth_token_secret)
+            success: { [weak self] credential, response, parameters in
+                self?.oauthToken = OAuthToken(token: credential.oauth_token, secret: credential.oauth_token_secret)
             },
             failure: { error in
                 print(error.localizedDescription)
@@ -133,23 +133,22 @@ class Flickr {
      TODO: 失敗時の処理。未認証時認証。
      
      - parameter coordinates: 写真を検索する際の中心座標。
-     - parameter accuracy: 検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。
+     - parameter radius: 検索する範囲の広さを指定する。32kmまで。
      - parameter handler: パースしたデータに対して実行する処理。
     */
     
-    func getPhotos(coordinates: Coordinates, accuracy: Int, handler: @escaping ([Photo]) -> ()) {
-        guard let params = params else { fatalError("params is nil.") }
-        
+    func getPhotos(coordinates: Coordinates, radius: Double, handler: @escaping ([Photo]) -> ()) {
         _ = oauthSwift.client.get(apiURL,
             parameters: [
                 "api_key"        : params.consumerKey,
                 "lat"            : coordinates.latitude,
                 "lon"            : coordinates.longitude,
                 "format"         : "json",
-                "accuracy"       : accuracy,
+                // "accuracy"       : accuracy,
+                "radius"         : radius,
                 "method"         : "flickr.photos.search",
                 "extras"         : "geo,owner_name",
-                    "per_page"      : 10,   // デバッグ用
+                    "per_page"      : 30,   // デバッグ用
                 "nojsoncallback" : 1
             ],
             headers: nil,
@@ -162,7 +161,7 @@ class Flickr {
                     printLog(json["message"].stringValue)
                 }
                 
-                handler(json["photos"]["photo"].arrayValue.map{ self.decodePhotoJSON(json: $0) })
+                handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
             },
             failure: { error in
                 // FIXME: 何か表示する。
@@ -175,7 +174,7 @@ class Flickr {
 }
 
 extension Flickr {
-    func decodePhotoJSON(json: JSON) -> Photo {
+    static func decode(from json: JSON) -> Photo {
         let id = json["id"].intValue
         let owner = json["owner"].stringValue
         let ownerName = json["owner_name"].stringValue
