@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     /// MARK: 定数
     private let AnnotationViewReuseIdentifier = "photo"
@@ -37,6 +37,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     /// 検索している中心座標
     private var searchingCoordinate = Coordinates()
     
+    private var locationManager : CLLocationManager?
+    
     /// MARK: メソッド
     
     /// 検索ボタンに対応するメソッド
@@ -61,16 +63,44 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    /// 現在地を表示する
+    @IBAction func showCurrentPosition(_ sender: UIBarButtonItem) {
+    switch CLLocationManager.authorizationStatus() {
+        case .denied, .notDetermined, .restricted:
+            locationManager?.requestWhenInUseAuthorization()
+            break
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
+        
+        if !CLLocationManager.locationServicesEnabled() { return }
+        
+        locationManager?.requestLocation()
+    }
+
+    /// 位置情報の更新に成功した時呼ばれる
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = manager.location {
+            mapView.setCenter(location.coordinate, animated: true)
+        }
+    }
+    
+    /// 位置情報の更新に失敗した時呼ばれる
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        printLog(error)
+    }
+    
     /// MKAnnotationViewをカスタムする
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
        
-        guard let photo = annotation as? Photo,
-            let url = photo.iconImageURL else { fatalError() }
-        if let data = imageDatas[url] {
-            view.image = UIImage(data: data, scale: 2.0)
-        } else {
-            printLog("Failed to get an icon image.")
+        if let photo = annotation as? Photo,
+            let url = photo.iconImageURL {
+            if let data = imageDatas[url] {
+                view.image = UIImage(data: data, scale: 2.0)
+            } else {
+                printLog("Failed to get an icon image.")
+            }
         }
         
         return view
@@ -102,6 +132,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         flickr?.authorize()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        
+        if(CLLocationManager.authorizationStatus() == .notDetermined) {
+            locationManager?.requestWhenInUseAuthorization()
+        }
         // Do any additional setup after loading the view.
     }
 

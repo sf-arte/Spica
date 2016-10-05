@@ -17,6 +17,7 @@
 		6BCE2D151D9A2CCB000CB38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D131D9A2CCB000CB38D /* Main.storyboard */; };
 		6BCE2D171D9A2CCB000CB38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D161D9A2CCB000CB38D /* Assets.xcassets */; };
 		6BCE2D1A1D9A2CCB000CB38D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D181D9A2CCB000CB38D /* LaunchScreen.storyboard */; };
+		6BDCC41F1DA4F91400B5DE62 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		6BCE2D161D9A2CCB000CB38D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BCE2D191D9A2CCB000CB38D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6BCE2D1B1D9A2CCB000CB38D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B61679B1DA220860009E6F8 /* SwiftyJSON.framework in Frameworks */,
+				6BDCC41F1DA4F91400B5DE62 /* MapKit.framework in Frameworks */,
 				6B07FBBF1D9B848D007B7FFC /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +60,8 @@
 		6B6878FA1D9A37BC00C7BE5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */,
+				6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */,
 				6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */,
 				6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */,
 				6B07FBBC1D9B847E007B7FFC /* iOS */,
@@ -153,6 +159,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = DB5FPWGTP9;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
