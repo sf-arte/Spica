@@ -24,3 +24,10 @@ Flickrの写真の位置情報から人気のある場所を推測して、リ�
 ![メインUI](https://github.com/sf-arte/Spica/blob/master/doc_files/mainUI.png)
 ![リストUI](https://github.com/sf-arte/Spica/blob/master/doc_files/listUI.png)
 ![詳細UI](https://github.com/sf-arte/Spica/blob/master/doc_files/detailUI.png)
+
+### 使用方法
+初回起動時にflickrのページがブラウザで開かれるので、ログインしてアプリの連携を許可する。
+右下の検索ボタンを押すと、地図の中心を基準に周辺の画像が検索され、表示される。
+
+### ビルド方法
+CarthageでSwiftJSONとOAuthSwiftを導入して、プロジェクトをビルド。
