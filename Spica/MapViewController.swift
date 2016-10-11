@@ -22,22 +22,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    @IBOutlet weak var currentPositionButton: UIBarButtonItem!
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var flickr : Flickr? = {
         guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
         guard let params = Flickr.OAuthParams(path: path) else { return nil }
         
-        return Flickr(params: params)
+        let flickr = Flickr(params: params)
+        flickr.authorize()
+        return flickr
     }()
-    
-    /// Flickrから撮ってきた画像のデータ
-    private var imageDatas = [URL : Data]()
     
     /// 検索している中心座標
     private var searchingCoordinate = Coordinates()
     
-    private var locationManager : CLLocationManager?
+    private let locationManager = CLLocationManager()
     
     /// MARK: メソッド
     
@@ -49,15 +50,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         printLog(centerCoordinate)
         
         mapView.removeAnnotations(mapView.annotations)
-        flickr?.getPhotos(coordinates: Coordinates(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude), radius: 1.0) { [weak self] photos in
-            self?.fetchImage(photos: photos){
+        flickr?.getPhotos(coordinates: centerCoordinate, radius: 1.0) { [weak self] photos in
+            self?.fetchImages(photos: photos){
                 for photo in photos {
                     printLog(photo.coordinate)
                 }
-                if let me = self, me.searchingCoordinate == centerCoordinate {
-                    me.mapView.addAnnotations(photos)
-                    me.mapView.showAnnotations(me.mapView.annotations, animated: true)
-                    me.spinner.stopAnimating()
+                if let strongSelf = self, strongSelf.searchingCoordinate == centerCoordinate {
+                    strongSelf.mapView.addAnnotations(photos)
+                    strongSelf.mapView.showAnnotations(strongSelf.mapView.annotations, animated: true)
+                    strongSelf.spinner.stopAnimating()
                 }
             }
         }
@@ -65,17 +66,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// 現在地を表示する
     @IBAction func showCurrentPosition(_ sender: UIBarButtonItem) {
-    switch CLLocationManager.authorizationStatus() {
-        case .denied, .notDetermined, .restricted:
-            locationManager?.requestWhenInUseAuthorization()
-            break
-        case .authorizedAlways, .authorizedWhenInUse:
-            break
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
         }
-        
-        if !CLLocationManager.locationServicesEnabled() { return }
-        
-        locationManager?.requestLocation()
     }
 
     /// 位置情報の更新に成功した時呼ばれる
@@ -93,14 +86,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// MKAnnotationViewをカスタムする
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
-       
+        view.canShowCallout = true
+        
+        
         if let photo = annotation as? Photo,
-            let url = photo.iconImageURL {
-            if let data = imageDatas[url] {
-                view.image = UIImage(data: data, scale: 2.0)
-            } else {
-                printLog("Failed to get an icon image.")
-            }
+            let image = photo.iconImage {
+            view.image = image
         }
         
         return view
@@ -110,14 +101,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     ///
     /// - parameter photos:     Photoの配列。
     /// - parameter completion: 完了後に行う処理。
-    private func fetchImage(photos: [Photo], completion: @escaping () -> ()) {
-        imageDatas.removeAll()
-        
+    private func fetchImages(photos: [Photo], completion: @escaping () -> ()) {
         let queue = DispatchQueue.global(qos: .userInitiated)
         queue.async {
             for photo in photos {
-                if let url = photo.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
-                    self.imageDatas[url] = iconImageData
+                if let url = photo.urls.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
+                    photo.iconImage = UIImage(data: iconImageData, scale: 2.0)
                 } else {
                     printLog("Couldn't fetch an icon image.")
                 }
@@ -131,13 +120,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        flickr?.authorize()
+
+        locationManager.delegate = self
         
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         
-        if(CLLocationManager.authorizationStatus() == .notDetermined) {
-            locationManager?.requestWhenInUseAuthorization()
+        // とりあえず現在地を表示
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
         }
         // Do any additional setup after loading the view.
     }

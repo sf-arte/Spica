@@ -120,7 +120,7 @@ class Flickr {
                 self?.oauthToken = OAuthToken(token: credential.oauth_token, secret: credential.oauth_token_secret)
             },
             failure: { error in
-                print(error.localizedDescription)
+                printLog(error.localizedDescription)
             }
         )
     }
@@ -177,7 +177,7 @@ extension Flickr {
     static func decode(from json: JSON) -> Photo {
         let id = json["id"].intValue
         let owner = json["owner"].stringValue
-        let ownerName = json["owner_name"].stringValue
+        let ownerName = json["ownername"].stringValue
         let secret = json["secret"].stringValue
         let server = json["server"].intValue
         let farm = json["farm"].intValue
@@ -195,9 +195,4 @@ extension Flickr {
             coordinate: coordinates
         )
     }
-}
-
-
-func printLog(_ obj: Any) {
-    print("##Spica Log: \(obj)")
 }

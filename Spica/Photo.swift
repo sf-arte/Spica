@@ -15,6 +15,31 @@ import MapKit
  
 */
 class Photo : NSObject{
+    struct URLs {
+        /// URL計算用
+        let secret : String
+        let server : Int
+        let farm : Int
+        let id : Int
+        
+        private var baseURL : String {
+            return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)"
+        }
+        
+        /// 大きい画像のURL。長辺が2048pxの画像のURLを返す
+        var largeImageURL : URL? {
+            return URL(string: baseURL + "_k.jpg")
+        }
+        
+        /// アイコン画像のURL。75x75pxの画像のURLを返す
+        var iconImageURL : URL? {
+            return URL(string: baseURL + "_s.jpg")
+        }
+    }
+    
+    /// 画像の各サイズのURL
+    let urls : URLs
+    
     /// 写真のユニークID
     let id : Int
     
@@ -24,38 +49,22 @@ class Photo : NSObject{
     /// 写真の撮影者のユーザー名
     let ownerName : String
     
-    /// URL計算用
-    private let secret : String
-    private let server : Int
-    private let farm : Int
-    
     /// 写真のタイトル
     let photoTitle : String
     
     /// 写真の撮影場所の座標
     let coordinate : Coordinates
     
-    private var baseURL : String {
-        return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)"
-    }
+    /// アイコンの画像
+    var iconImage : UIImage? = nil
     
-    /// 大きい画像のURL。長辺が2048pxの画像のURLを返す
-    var largeImageURL : URL? {
-        return URL(string: baseURL + "_k.jpg")
-    }
     
-    /// アイコン画像のURL。75x75pxの画像のURLを返す
-    var iconImageURL : URL? {
-        return URL(string: baseURL + "_s.jpg")
-    }
     
     init(id: Int, owner: String, ownerName: String, secret: String, server: Int, farm: Int, photoTitle: String, coordinate: Coordinates) {
+        self.urls = URLs(secret: secret, server: server, farm: farm, id: id)
         self.id = id
         self.owner = owner
         self.ownerName = ownerName
-        self.secret = secret
-        self.server = server
-        self.farm = farm
         self.photoTitle = photoTitle
         self.coordinate = coordinate
     }
@@ -73,9 +82,5 @@ extension Photo : MKAnnotation {
     }
 }
 
-typealias Coordinates = CLLocationCoordinate2D
 
-func == (lhs: Coordinates, rhs: Coordinates) -> Bool{
-    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
-}
 

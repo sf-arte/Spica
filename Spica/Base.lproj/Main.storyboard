@@ -24,7 +24,7 @@
                             </activityIndicatorView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqx-kE-Yv5">
                                 <items>
-                                    <barButtonItem systemItem="refresh" id="KxU-fk-85J">
+                                    <barButtonItem title="現在地" id="KxU-fk-85J">
                                         <connections>
                                             <action selector="showCurrentPosition:" destination="qzi-PN-MNh" id="BBQ-OL-ZqX"/>
                                         </connections>
@@ -52,6 +52,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="currentPositionButton" destination="KxU-fk-85J" id="MZW-bS-LdI"/>
                         <outlet property="mapView" destination="Vum-c4-DXg" id="C83-BD-CPw"/>
                         <outlet property="spinner" destination="QrO-Qc-43o" id="rdr-JN-TJN"/>
                     </connections>

@@ -18,6 +18,7 @@
 		6BCE2D171D9A2CCB000CB38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D161D9A2CCB000CB38D /* Assets.xcassets */; };
 		6BCE2D1A1D9A2CCB000CB38D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D181D9A2CCB000CB38D /* LaunchScreen.storyboard */; };
 		6BDCC41F1DA4F91400B5DE62 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */; };
+		6BF8ACFF1DACA66C00DDCC0F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		6BCE2D1B1D9A2CCB000CB38D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */,
 				6B07FBC41D9BCACE007B7FFC /* Photo.swift */,
+				6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */,
 				6BCE2D131D9A2CCB000CB38D /* Main.storyboard */,
 				6B07FBC01D9B8629007B7FFC /* Flickr.swift */,
 				6B07FBC21D9BA508007B7FFC /* key.txt */,
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BF8ACFF1DACA66C00DDCC0F /* Utility.swift in Sources */,
 				6BCE2D101D9A2CCB000CB38D /* AppDelegate.swift in Sources */,
 				6B07FBC11D9B8629007B7FFC /* Flickr.swift in Sources */,
 				6B07FBC51D9BCACE007B7FFC /* Photo.swift in Sources */,
