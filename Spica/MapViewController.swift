@@ -66,6 +66,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// 現在地を表示する
     @IBAction func showCurrentPosition(_ sender: UIBarButtonItem) {
+        locationManager.requestWhenInUseAuthorization()
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
@@ -85,6 +87,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// MKAnnotationViewをカスタムする
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // 現在地のアイコン
+        if annotation is MKUserLocation {
+            return nil
+        }
+        // サムネイルを表示するカスタムビュー
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
         view.canShowCallout = true
         
@@ -123,7 +130,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         locationManager.delegate = self
         
-        locationManager.requestWhenInUseAuthorization()
         
         // とりあえず現在地を表示
         if CLLocationManager.locationServicesEnabled() {
