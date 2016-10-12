@@ -144,7 +144,6 @@ class Flickr {
                 "lat"            : coordinates.latitude,
                 "lon"            : coordinates.longitude,
                 "format"         : "json",
-                // "accuracy"       : accuracy,
                 "radius"         : radius,
                 "method"         : "flickr.photos.search",
                 "extras"         : "geo,owner_name",

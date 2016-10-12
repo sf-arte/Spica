@@ -91,6 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if annotation is MKUserLocation {
             return nil
         }
+        
         // サムネイルを表示するカスタムビュー
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
         view.canShowCallout = true
