@@ -26,8 +26,28 @@ Flickrの写真の位置情報から人気のある場所を推測して、リ�
 ![詳細UI](https://github.com/sf-arte/Spica/blob/master/doc_files/detailUI.png)
 
 ### 使用方法
-初回起動時にflickrのページがブラウザで開かれるので、ログインしてアプリの連携を許可する。
+初回起動時にflickrのページがブラウザで開かれるので、ログインしてアプリの連携を許可する。  
 右下の検索ボタンを押すと、地図の中心を基準に周辺の画像が検索され、表示される。
 
 ### ビルド方法
-CarthageでSwiftJSONとOAuthSwiftを導入して、プロジェクトをビルド。
+CarthageでSwiftJSONとOAuthSwiftをビルド。
+```
+carthage update --platform iOS
+```
+プロジェクトファイルを開き、設定の"General > Linked Frameworks and Libraries"に"Carthage/Build/iOS"内の"SwiftyJSON.framework"と"OAuthSwift.framework"を追加する。  
+"Build Phases"タブの＋ボタンから”New Run Script Phase"を選択。  
+"Run Script"の"Shell"の下に以下のように記述する。  
+```
+/usr/local/bin/carthage copy-frameworks
+```
+"Input Files"に以下の行を追加。
+```
+$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework
+$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework
+```
+
+(参考: <https://github.com/Carthage/Carthage/blob/master/README.md>)
+
+Flickrにログインし<https://www.flickr.com/services/apps/create/apply/>にアクセス。
+”APPLY FOR A NON-COMMERCIAL KEY"をクリックし、アプリケーションの情報を入力する。  
+得られたKeyとSecretを"key.txt"に1行ずつ記述して、プロジェクトの"Build Phases > Copy Bundle Resources"に追加する。
