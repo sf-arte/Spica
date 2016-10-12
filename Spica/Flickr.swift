@@ -95,8 +95,9 @@ class Flickr {
             oauthSwift.client = OAuthSwiftClient(
                 consumerKey: params.consumerKey,
                 consumerSecret: params.consumerSecret,
-                accessToken: token,
-                accessTokenSecret: secret
+                oauthToken: token,
+                oauthTokenSecret: secret,
+                version: .oauth1
             )
             oauthToken = OAuthToken(token: token, secret: secret)
         }
@@ -113,11 +114,11 @@ class Flickr {
     
     func authorize() {
         if (oauthToken != nil) { return }
-        // TODO: バージョンアップ
-        oauthSwift.authorizeWithCallbackURL(
-            URL(string: "Spica://oauth-callback/flickr")!,
+        
+        oauthSwift.authorize(
+            withCallbackURL: URL(string: "Spica://oauth-callback/flickr")!,
             success: { [weak self] credential, response, parameters in
-                self?.oauthToken = OAuthToken(token: credential.oauth_token, secret: credential.oauth_token_secret)
+                self?.oauthToken = OAuthToken(token: credential.oauthToken, secret: credential.oauthTokenSecret)
             },
             failure: { error in
                 printLog(error.localizedDescription)
@@ -138,7 +139,7 @@ class Flickr {
     */
     
     func getPhotos(coordinates: Coordinates, radius: Double, handler: @escaping ([Photo]) -> ()) {
-        _ = oauthSwift.client.get(apiURL,
+        oauthSwift.client.get(apiURL,
             parameters: [
                 "api_key"        : params.consumerKey,
                 "lat"            : coordinates.latitude,
@@ -151,15 +152,15 @@ class Flickr {
                 "nojsoncallback" : 1
             ],
             headers: nil,
-            success: { (data, response) in
+            success: { data, response in
                 let json = JSON(data: data)
-
+            
                 let status = json["stat"].stringValue
                 if(status != "ok") {
                     // FIXME: 何か表示する。
                     printLog(json["message"].stringValue)
                 }
-                
+            
                 handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
             },
             failure: { error in
@@ -167,7 +168,6 @@ class Flickr {
                 printLog(error)
             }
         )
-    
     }
     
 }

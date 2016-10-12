@@ -45,3 +45,4 @@ Carthage/Build
 .DS_Store
 key.txt
 *.command
+Cartfile.resolved

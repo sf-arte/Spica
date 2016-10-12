@@ -1,2 +1,3 @@
 github "SwiftyJSON/SwiftyJSON"
-github "OAuthSwift/OAuthSwift" "swift3.0"
+github "OAuthSwift/OAuthSwift"
+github "DaveWoodCom/XCGLogger" ~> 4.0.0

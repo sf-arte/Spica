@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B07FBBF1D9B848D007B7FFC /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */; };
 		6B07FBC11D9B8629007B7FFC /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC01D9B8629007B7FFC /* Flickr.swift */; };
 		6B07FBC31D9BA508007B7FFC /* key.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B07FBC21D9BA508007B7FFC /* key.txt */; };
 		6B07FBC51D9BCACE007B7FFC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC41D9BCACE007B7FFC /* Photo.swift */; };
-		6B61679B1DA220860009E6F8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */; };
 		6B6879071D9A3BDD00C7BE5D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */; };
 		6BCE2D101D9A2CCB000CB38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCE2D0F1D9A2CCB000CB38D /* AppDelegate.swift */; };
 		6BCE2D151D9A2CCB000CB38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D131D9A2CCB000CB38D /* Main.storyboard */; };
 		6BCE2D171D9A2CCB000CB38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D161D9A2CCB000CB38D /* Assets.xcassets */; };
 		6BCE2D1A1D9A2CCB000CB38D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D181D9A2CCB000CB38D /* LaunchScreen.storyboard */; };
-		6BDCC41F1DA4F91400B5DE62 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */; };
+		6BE5A0E21DAE102D008CB92B /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */; };
+		6BE5A0E31DAE102D008CB92B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */; };
 		6BF8ACFF1DACA66C00DDCC0F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +41,7 @@
 		6BCE2D1B1D9A2CCB000CB38D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6BE5A0DF1DAE07FF008CB92B /* OAuthSwiftFuturesIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftFuturesIOS.framework; path = Carthage/Build/iOS/OAuthSwiftFuturesIOS.framework; sourceTree = "<group>"; };
 		6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,9 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B61679B1DA220860009E6F8 /* SwiftyJSON.framework in Frameworks */,
-				6BDCC41F1DA4F91400B5DE62 /* MapKit.framework in Frameworks */,
-				6B07FBBF1D9B848D007B7FFC /* OAuthSwift.framework in Frameworks */,
+				6BE5A0E21DAE102D008CB92B /* OAuthSwift.framework in Frameworks */,
+				6BE5A0E31DAE102D008CB92B /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +61,7 @@
 		6B6878FA1D9A37BC00C7BE5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BE5A0DF1DAE07FF008CB92B /* OAuthSwiftFuturesIOS.framework */,
 				6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */,
 				6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */,
 				6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */,

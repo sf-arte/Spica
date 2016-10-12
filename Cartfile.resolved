@@ -1,2 +1,6 @@
-github "OAuthSwift/OAuthSwift" "0e91d7e155b57225cf12585be928d2ae47306db5"
-github "SwiftyJSON/SwiftyJSON" "3.1.0"
+github "OAuthSwift/OAuthSwift" "9e8a62db3b8eeecacf5aaa449ef08a536f541409"
+github "antitypical/Result" "3.0.0"
+github "SwiftyJSON/SwiftyJSON" "v3.1.1"
+github "DaveWoodCom/XCGLogger" "Version_4.0.0"
+github "Thomvis/BrightFutures" "v5.0.1"
+github "OAuthSwift/OAuthSwiftFutures" "1.0.0"
