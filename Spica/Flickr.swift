@@ -76,7 +76,6 @@ class Flickr {
     // MARK: Lifecycle
     /// イニシャライザ
     init(params: OAuthParams) {
-        //guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
         self.params = params
         
         oauthSwift = OAuth1Swift(
@@ -135,10 +134,11 @@ class Flickr {
      
      - parameter coordinates: 写真を検索する際の中心座標。
      - parameter radius: 検索する範囲の広さを指定する。32kmまで。
+     - parameter count: 1回に取得する件数。500件まで。
      - parameter handler: パースしたデータに対して実行する処理。
     */
     
-    func getPhotos(coordinates: Coordinates, radius: Double, handler: @escaping ([Photo]) -> ()) {
+    func getPhotos(coordinates: Coordinates, radius: Double, count: Int, handler: @escaping ([Photo]) -> ()) {
         oauthSwift.client.get(apiURL,
             parameters: [
                 "api_key"        : params.consumerKey,
@@ -148,7 +148,7 @@ class Flickr {
                 "radius"         : radius,
                 "method"         : "flickr.photos.search",
                 "extras"         : "geo,owner_name",
-                    "per_page"      : 30,   // デバッグ用
+                "per_page"      : count,
                 "nojsoncallback" : 1
             ],
             headers: nil,
@@ -160,7 +160,6 @@ class Flickr {
                     // FIXME: 何か表示する。
                     printLog(json["message"].stringValue)
                 }
-            
                 handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
             },
             failure: { error in

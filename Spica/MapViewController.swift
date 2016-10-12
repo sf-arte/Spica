@@ -50,7 +50,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         printLog(centerCoordinate)
         
         mapView.removeAnnotations(mapView.annotations)
-        flickr?.getPhotos(coordinates: centerCoordinate, radius: 1.0) { [weak self] photos in
+        flickr?.getPhotos(coordinates: centerCoordinate, radius: 1.0, count: 30) { [weak self] photos in
             self?.fetchImages(photos: photos){
                 for photo in photos {
                     printLog(photo.coordinate)
