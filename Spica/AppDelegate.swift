@@ -8,12 +8,24 @@
 
 import UIKit
 import OAuthSwift
+import XCGLogger
+
+let log : XCGLogger? = {
+    #if DEBUG
+        let log = XCGLogger.default
+        log.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: "path/to/file", fileLevel: .debug)
+        
+        return log
+    #else
+        return nil
+    #endif
+}()
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -21,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        // OAuthSwift
         if (url.host == "oauth-callback") {
             OAuthSwift.handle(url: url)
         }

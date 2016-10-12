@@ -18,6 +18,7 @@
 		6BE5A0E21DAE102D008CB92B /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */; };
 		6BE5A0E31DAE102D008CB92B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */; };
 		6BE5A1031DAE25E1008CB92B /* FlickrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE5A1021DAE25E1008CB92B /* FlickrTests.swift */; };
+		6BE5A1051DAE3640008CB92B /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE5A1041DAE3640008CB92B /* XCGLogger.framework */; };
 		6BF8ACFF1DACA66C00DDCC0F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		6BE5A0F41DAE221D008CB92B /* SpicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE5A0F81DAE221D008CB92B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BE5A1021DAE25E1008CB92B /* FlickrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrTests.swift; sourceTree = "<group>"; };
+		6BE5A1041DAE3640008CB92B /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BE5A1051DAE3640008CB92B /* XCGLogger.framework in Frameworks */,
 				6BE5A0E21DAE102D008CB92B /* OAuthSwift.framework in Frameworks */,
 				6BE5A0E31DAE102D008CB92B /* SwiftyJSON.framework in Frameworks */,
 			);
@@ -83,6 +86,7 @@
 		6B6878FA1D9A37BC00C7BE5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BE5A1041DAE3640008CB92B /* XCGLogger.framework */,
 				6BE5A0EB1DAE144C008CB92B /* XCTest.framework */,
 				6BE5A0DF1DAE07FF008CB92B /* OAuthSwiftFuturesIOS.framework */,
 				6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */,
@@ -269,6 +273,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/XCGLogger.framework",
 			);
 			outputPaths = (
 			);
@@ -435,6 +440,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.Spica";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;

@@ -6,7 +6,6 @@
 //  Copyright © 2016年 ARTE Co., Ltd. All rights reserved.
 //
 
-import Foundation
 import OAuthSwift
 import SwiftyJSON
 
@@ -43,7 +42,6 @@ class Flickr {
         let accessTokenURL = "https://www.flickr.com/services/oauth/access_token"
 
         init?(path: String) {
-            // temporarily loading from .txt file
             do {
                 let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 let lines = text.components(separatedBy: CharacterSet.newlines)
@@ -120,7 +118,7 @@ class Flickr {
                 self?.oauthToken = OAuthToken(token: credential.oauthToken, secret: credential.oauthTokenSecret)
             },
             failure: { error in
-                printLog(error.localizedDescription)
+                log?.error(error.localizedDescription)
             }
         )
     }
@@ -158,13 +156,13 @@ class Flickr {
                 let status = json["stat"].stringValue
                 if(status != "ok") {
                     // FIXME: 何か表示する。
-                    printLog(json["message"].stringValue)
+                    log?.error(json["message"].stringValue)
                 }
                 handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
             },
             failure: { error in
                 // FIXME: 何か表示する。
-                printLog(error)
+                log?.error(error)
             }
         )
     }

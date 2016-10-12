@@ -47,13 +47,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         spinner?.startAnimating()
         let centerCoordinate = mapView.centerCoordinate
         searchingCoordinate = centerCoordinate
-        printLog(centerCoordinate)
+        log?.debug(centerCoordinate)
         
         mapView.removeAnnotations(mapView.annotations)
         flickr?.getPhotos(coordinates: centerCoordinate, radius: 1.0, count: 30) { [weak self] photos in
             self?.fetchImages(photos: photos){
                 for photo in photos {
-                    printLog(photo.coordinate)
+                    log?.debug(photo.coordinate)
                 }
                 if let strongSelf = self, strongSelf.searchingCoordinate == centerCoordinate {
                     strongSelf.mapView.addAnnotations(photos)
@@ -82,7 +82,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// 位置情報の更新に失敗した時呼ばれる
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        printLog(error)
+        log?.error(error)
     }
     
     /// MKAnnotationViewをカスタムする
@@ -116,7 +116,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 if let url = photo.urls.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
                     photo.iconImage = UIImage(data: iconImageData, scale: 2.0)
                 } else {
-                    printLog("Couldn't fetch an icon image.")
+                    log?.warning("Couldn't fetch an icon image.")
                 }
             }
             
