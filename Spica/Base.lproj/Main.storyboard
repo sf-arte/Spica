@@ -52,14 +52,51 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="currentPositionButton" destination="KxU-fk-85J" id="MZW-bS-LdI"/>
+                        <outlet property="currentLocationButton" destination="KxU-fk-85J" id="fd3-NX-bWf"/>
                         <outlet property="mapView" destination="Vum-c4-DXg" id="C83-BD-CPw"/>
                         <outlet property="spinner" destination="QrO-Qc-43o" id="rdr-JN-TJN"/>
+                        <segue destination="qBd-So-Ecf" kind="show" identifier="Show Image" id="vz9-TK-ROh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICy-sB-IbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="448.80000000000001" y="73.313343328335833"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="p47-Pv-o2I">
+            <objects>
+                <viewController id="qBd-So-Ecf" customClass="ImageViewController" customModule="Spica" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oOU-WS-wy6"/>
+                        <viewControllerLayoutGuide type="bottom" id="7TL-Qo-3sd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V0J-WW-dSU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-zY-vPK">
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4V-hO-84A"/>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="b4V-hO-84A" secondAttribute="trailing" id="5Ha-hP-ov9"/>
+                            <constraint firstItem="b4V-hO-84A" firstAttribute="bottom" secondItem="7TL-Qo-3sd" secondAttribute="top" id="HhH-Zt-jgk"/>
+                            <constraint firstItem="b4V-hO-84A" firstAttribute="top" secondItem="V0J-WW-dSU" secondAttribute="top" id="Nft-Ps-zs2"/>
+                            <constraint firstItem="bhP-zY-vPK" firstAttribute="centerX" secondItem="b4V-hO-84A" secondAttribute="centerX" id="fv1-Tf-nMY"/>
+                            <constraint firstItem="bhP-zY-vPK" firstAttribute="centerY" secondItem="b4V-hO-84A" secondAttribute="centerY" id="jhR-qk-3n4"/>
+                            <constraint firstItem="b4V-hO-84A" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leading" id="yVX-Id-0bC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="b4V-hO-84A" id="Bxo-YK-KH6"/>
+                        <outlet property="spinner" destination="bhP-zY-vPK" id="XyE-9L-dW6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jto-n1-17A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1197.5999999999999" y="72.413793103448285"/>
         </scene>
     </scenes>
 </document>

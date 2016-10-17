@@ -18,6 +18,7 @@ class Photo : NSObject{
     
     /// URL計算用struct
     struct URLGenerator {
+        /*
         let secret : String
         let server : Int
         let farm : Int
@@ -26,16 +27,13 @@ class Photo : NSObject{
         private var baseURL : String {
             return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)"
         }
+         */
         
-        /// 大きい画像のURL。長辺が2048pxの画像のURLを返す
-        var largeImageURL : URL? {
-            return URL(string: baseURL + "_k.jpg")
-        }
+        /// オリジナルの画像のURL
+        var largeImageURL : URL?
         
         /// アイコン画像のURL。75x75pxの画像のURLを返す
-        var iconImageURL : URL? {
-            return URL(string: baseURL + "_s.jpg")
-        }
+        var iconImageURL : URL?
     }
     
     /// 画像の各サイズのURL
@@ -61,8 +59,8 @@ class Photo : NSObject{
     
     
     
-    init(id: Int, owner: String, ownerName: String, secret: String, server: Int, farm: Int, photoTitle: String, coordinate: Coordinates) {
-        self.urls = URLGenerator(secret: secret, server: server, farm: farm, id: id)
+    init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, photoTitle: String, coordinate: Coordinates) {
+        self.urls = URLGenerator(largeImageURL: URL(string: largeURL), iconImageURL: URL(string: iconURL))
         self.id = id
         self.owner = owner
         self.ownerName = ownerName

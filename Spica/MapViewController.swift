@@ -12,7 +12,9 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     /// MARK: 定数
+    
     private let AnnotationViewReuseIdentifier = "photo"
+    private let ShowImageSegueIdentifier = "Show Image"
     
     /// MARK: プロパティ
     
@@ -22,7 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    @IBOutlet weak var currentPositionButton: UIBarButtonItem!
+    @IBOutlet weak var currentLocationButton: UIBarButtonItem!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
@@ -57,7 +59,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 }
                 if let strongSelf = self, strongSelf.searchingCoordinate == centerCoordinate {
                     strongSelf.mapView.addAnnotations(photos)
-                    strongSelf.mapView.showAnnotations(strongSelf.mapView.annotations, animated: true)
+                    strongSelf.mapView.showAnnotations(photos, animated: true)
                     strongSelf.spinner.stopAnimating()
                 }
             }
@@ -94,8 +96,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         // サムネイルを表示するカスタムビュー
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
-        view.canShowCallout = true
-        
+        // view.canShowCallout = true
         
         if let photo = annotation as? Photo,
             let image = photo.iconImage {
@@ -103,6 +104,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         return view
+    }
+    
+    /// Annotationが選択された時の処理
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if !(view.annotation is MKUserLocation) {
+            performSegue(withIdentifier: ShowImageSegueIdentifier, sender: view)
+        }
     }
     
     /// PhotoクラスのiconImageURLで指定された画像を取ってくる。
@@ -142,6 +150,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ShowImageSegueIdentifier {
+            guard let viewController = segue.destination as? ImageViewController else { fatalError() }
+            guard let annotation = (sender as? MKAnnotationView)?.annotation as? Photo else { return }
+            viewController.photo = annotation
+        }
     }
 
 

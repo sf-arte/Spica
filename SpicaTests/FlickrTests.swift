@@ -70,7 +70,7 @@ class FlickrTests: XCTestCase {
     }
         
     func testGetPhotosShouldSuccess(coordinates: Coordinates, radius: Double, count: Int) {
-        let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() succeed")
+        let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() succeeded")
         
         flickr.getPhotos(coordinates: coordinates, radius: radius, count: count){
             photos in

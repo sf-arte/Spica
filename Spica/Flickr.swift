@@ -145,7 +145,7 @@ class Flickr {
                 "format"         : "json",
                 "radius"         : radius,
                 "method"         : "flickr.photos.search",
-                "extras"         : "geo,owner_name",
+                "extras"         : "geo,owner_name,url_o,url_sq",
                 "per_page"      : count,
                 "nojsoncallback" : 1
             ],
@@ -174,19 +174,17 @@ extension Flickr {
         let id = json["id"].intValue
         let owner = json["owner"].stringValue
         let ownerName = json["ownername"].stringValue
-        let secret = json["secret"].stringValue
-        let server = json["server"].intValue
-        let farm = json["farm"].intValue
         let title = json["title"].stringValue
+        let iconURL = json["url_sq"].stringValue
+        let largeURL = json["url_o"].stringValue
         let coordinates = Coordinates(latitude: json["latitude"].doubleValue, longitude: json["longitude"].doubleValue)
    
         return Photo(
             id: id,
             owner: owner,
             ownerName: ownerName,
-            secret: secret,
-            server: server,
-            farm: farm,
+            iconURL: iconURL,
+            largeURL: largeURL,
             photoTitle: title,
             coordinate: coordinates
         )
