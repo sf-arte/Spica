@@ -53,7 +53,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         mapView.removeAnnotations(mapView.annotations)
         
-        let radius = min(32.0, calculateVerticalRealDistance() / 2.0)
+        let radius = min(32.0, max(calculateVerticalRealDistance(), calculateHorizontalRealDistance()) * 0.75 / 2.0)
         
         flickr?.getPhotos(coordinates: centerCoordinate, radius: radius, count: 50) { [weak self] photos in
             self?.fetchImages(photos: photos){
@@ -149,18 +149,31 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         return MKMetersBetweenMapPoints(top, bottom) / 1000.0
     }
+    
+    /// 地図の表示されている範囲の横方向の実距離を求める
+    private func calculateHorizontalRealDistance() -> Double {
+        let rect = mapView.visibleMapRect
+        let top = MKMapPointMake(MKMapRectGetMinX(rect), MKMapRectGetMidY(rect))
+        let bottom = MKMapPointMake(MKMapRectGetMaxX(rect), MKMapRectGetMidY(rect))
+        
+        return MKMetersBetweenMapPoints(top, bottom) / 1000.0
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         locationManager.delegate = self
         
+        let center = CLLocationCoordinate2DMake(35.681382 , 139.766084)
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        mapView.region = MKCoordinateRegionMake(center, span)
         
         // とりあえず現在地を表示
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
-        // Do any additional setup after loading the view.
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

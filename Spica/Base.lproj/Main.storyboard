@@ -104,7 +104,7 @@
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerY" secondItem="b4V-hO-84A" secondAttribute="centerY" id="jhR-qk-3n4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZnC-Ad-0ug" secondAttribute="trailing" constant="5" id="wLK-zN-Do0"/>
                             <constraint firstItem="b4V-hO-84A" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leading" id="yVX-Id-0bC"/>
-                            <constraint firstItem="ZnC-Ad-0ug" firstAttribute="top" secondItem="oOU-WS-wy6" secondAttribute="bottom" constant="-3" id="ywF-Si-S8j"/>
+                            <constraint firstItem="ZnC-Ad-0ug" firstAttribute="top" secondItem="oOU-WS-wy6" secondAttribute="bottom" constant="5" id="ywF-Si-S8j"/>
                         </constraints>
                     </view>
                     <connections>
