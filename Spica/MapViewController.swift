@@ -52,7 +52,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         log?.debug(centerCoordinate)
         
         mapView.removeAnnotations(mapView.annotations)
-        flickr?.getPhotos(coordinates: centerCoordinate, radius: 1.0, count: 30) { [weak self] photos in
+        
+        let radius = min(32.0, calculateVerticalRealDistance() / 2.0)
+        
+        flickr?.getPhotos(coordinates: centerCoordinate, radius: radius, count: 50) { [weak self] photos in
             self?.fetchImages(photos: photos){
                 for photo in photos {
                     log?.debug(photo.coordinate)
@@ -136,6 +139,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 completion()
             }
         }
+    }
+    
+    /// 地図の表示されている範囲の縦方向の実距離を求める
+    private func calculateVerticalRealDistance() -> Double {
+        let rect = mapView.visibleMapRect
+        let top = MKMapPointMake(MKMapRectGetMidX(rect), MKMapRectGetMinY(rect))
+        let bottom = MKMapPointMake(MKMapRectGetMidX(rect), MKMapRectGetMaxY(rect))
+        
+        return MKMetersBetweenMapPoints(top, bottom) / 1000.0
     }
 
     override func viewDidLoad() {
