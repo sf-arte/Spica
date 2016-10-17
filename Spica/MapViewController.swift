@@ -74,6 +74,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             locationManager.requestLocation()
         }
     }
+    
+    @IBAction func unwind(segue: UIStoryboardSegue) {
+    }
 
     /// 位置情報の更新に成功した時呼ばれる
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -111,6 +114,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if !(view.annotation is MKUserLocation) {
             performSegue(withIdentifier: ShowImageSegueIdentifier, sender: view)
         }
+        mapView.deselectAnnotation(view.annotation, animated: false)
     }
     
     /// PhotoクラスのiconImageURLで指定された画像を取ってくる。

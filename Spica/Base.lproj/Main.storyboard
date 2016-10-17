@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -55,7 +56,7 @@
                         <outlet property="currentLocationButton" destination="KxU-fk-85J" id="fd3-NX-bWf"/>
                         <outlet property="mapView" destination="Vum-c4-DXg" id="C83-BD-CPw"/>
                         <outlet property="spinner" destination="QrO-Qc-43o" id="rdr-JN-TJN"/>
-                        <segue destination="qBd-So-Ecf" kind="show" identifier="Show Image" id="vz9-TK-ROh"/>
+                        <segue destination="qBd-So-Ecf" kind="presentation" identifier="Show Image" id="vz9-TK-ROh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICy-sB-IbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -74,10 +75,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-zY-vPK">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-zY-vPK">
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4V-hO-84A"/>
+                            <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZnC-Ad-0ug">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="QI8-lx-3dL"/>
+                                    <constraint firstAttribute="height" constant="22" id="duz-zI-Ll0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="×">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="K1C-pA-BjW" kind="unwind" unwindAction="unwindWithSegue:" id="fFm-kd-adn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -86,7 +102,9 @@
                             <constraint firstItem="b4V-hO-84A" firstAttribute="top" secondItem="V0J-WW-dSU" secondAttribute="top" id="Nft-Ps-zs2"/>
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerX" secondItem="b4V-hO-84A" secondAttribute="centerX" id="fv1-Tf-nMY"/>
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerY" secondItem="b4V-hO-84A" secondAttribute="centerY" id="jhR-qk-3n4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZnC-Ad-0ug" secondAttribute="trailing" constant="5" id="wLK-zN-Do0"/>
                             <constraint firstItem="b4V-hO-84A" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leading" id="yVX-Id-0bC"/>
+                            <constraint firstItem="ZnC-Ad-0ug" firstAttribute="top" secondItem="oOU-WS-wy6" secondAttribute="bottom" constant="-3" id="ywF-Si-S8j"/>
                         </constraints>
                     </view>
                     <connections>
@@ -95,6 +113,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jto-n1-17A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="K1C-pA-BjW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="72.413793103448285"/>
         </scene>

@@ -29,6 +29,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width
+            scrollView.zoomScale = scrollView.minimumZoomScale
         }
     }
 
@@ -36,8 +38,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         didSet {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
-            scrollView.minimumZoomScale = 0.03
-            scrollView.maximumZoomScale = 1.0
+            scrollView.minimumZoomScale = 1.0
+            scrollView.maximumZoomScale = 2.0
         }
     }
    
@@ -56,14 +58,26 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             fetchImage()
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        updateScrollInset()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateScrollInset()
     }
     
     /// 画像の取得
@@ -85,6 +99,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             }
 
         }
+    }
+    
+    private func updateScrollInset() {
+        scrollView.contentInset = UIEdgeInsetsMake(
+            max((scrollView.frame.height - imageView.frame.height) / 2, 0),
+            max((scrollView.frame.width - imageView.frame.width) / 2, 0),
+            0,
+            0
+        )
     }
     
 

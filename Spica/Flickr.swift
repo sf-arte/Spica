@@ -48,8 +48,7 @@ class Flickr {
                 consumerKey = lines[0]
                 consumerSecret = lines[1]
             } catch (let error) {
-                // FIXIT: なんかする
-                print(error)
+                log?.error(error)
                 return nil
             }
         }
@@ -146,7 +145,7 @@ class Flickr {
                 "radius"         : radius,
                 "method"         : "flickr.photos.search",
                 "extras"         : "geo,owner_name,url_o,url_sq",
-                "per_page"      : count,
+                "per_page"       : count,
                 "nojsoncallback" : 1
             ],
             headers: nil,
@@ -155,13 +154,11 @@ class Flickr {
             
                 let status = json["stat"].stringValue
                 if(status != "ok") {
-                    // FIXME: 何か表示する。
                     log?.error(json["message"].stringValue)
                 }
                 handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
             },
             failure: { error in
-                // FIXME: 何か表示する。
                 log?.error(error)
             }
         )
