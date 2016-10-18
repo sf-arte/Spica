@@ -107,11 +107,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         // サムネイルを表示するカスタムビュー
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationViewReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: AnnotationViewReuseIdentifier)
-        // view.canShowCallout = true
         
         if let photo = annotation as? Photo,
             let image = photo.iconImage {
             view.image = image
+            // 見た目の調整
+            view.layer.borderColor = UIColor.white.cgColor
+            view.layer.borderWidth = 1
+            // view.layer.shadowOffset = CGSize(width: 2, height: 2)
+            // view.layer.shadowRadius = 3
+            // view.layer.shadowOpacity = 0.5
         }
         
         return view

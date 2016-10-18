@@ -31,35 +31,44 @@ class FlickrTests: XCTestCase {
     }
     
     func testGetPhotosInvalidCoordinate() {
-        testGetPhotosShouldFail(coordinates: Coordinates(latitude: 90.01, longitude: 0.0), radius: 5.0, count: 10)
-        testGetPhotosShouldFail(coordinates: Coordinates(latitude: 0.0, longitude: 180.01), radius: 5.0, count: 10)
-        testGetPhotosShouldFail(coordinates: Coordinates(latitude: -90.01, longitude: 0.0), radius: 5.0, count: 10)
-        testGetPhotosShouldFail(coordinates: Coordinates(latitude: 0.0, longitude: -180.01), radius: 5.0, count: 10)
+        testGetPhotosShouldFail(
+            leftBottom: Coordinates(latitude: 35.0, longitude: 135.0),
+            rightTop:   Coordinates(latitude: 34.0, longitude: 136.0)
+        )
+        testGetPhotosShouldFail(
+            leftBottom: Coordinates(latitude: 35.0, longitude: 135.0),
+            rightTop:   Coordinates(latitude: 90.1, longitude: 150.0)
+        )
+        testGetPhotosShouldFail(
+            leftBottom: Coordinates(latitude: 35.0, longitude: -180.1),
+            rightTop:   Coordinates(latitude: 36.0, longitude: 136.0)
+        )
+        
+        testGetPhotosShouldFail(
+            leftBottom: Coordinates(latitude: 35.0, longitude: 175.0),
+            rightTop:   Coordinates(latitude: 40.0, longitude: -175.0)
+        )
     }
     
     func testGetPhotosValidCoordinate() {
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 35.0, longitude: 135.0), radius: 5.0, count: 10)
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 0.0, longitude: 180.0), radius: 5.0, count: 10)
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 0.0, longitude: -180.0), radius: 5.0, count: 10)
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 90.0, longitude: 0.0), radius: 5.0, count: 10)
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 90.0, longitude: 0.0), radius: 5.0, count: 10)
+        testGetPhotosShouldSuccess(
+            leftBottom: Coordinates(latitude: 35.0, longitude: 135.0),
+            rightTop:   Coordinates(latitude: 36.0, longitude: 136.0)
+        )
+        testGetPhotosShouldSuccess(
+            leftBottom: Coordinates(latitude: 0.0, longitude: 0.0),
+            rightTop:   Coordinates(latitude: 90.0, longitude: 180.0)
+        )
+        testGetPhotosShouldSuccess(
+            leftBottom: Coordinates(latitude: -90.0, longitude: -180.0),
+            rightTop:   Coordinates(latitude: 90.0, longitude: 180.0)
+        )
     }
     
-    func testGetPhotoInvalidRadius() {
-        testGetPhotosShouldFail(coordinates: Coordinates(latitude: 35.0, longitude: 135.0), radius: -1.0, count: 10)
-        testGetPhotosShouldFail(coordinates: Coordinates(latitude: 35.0, longitude: 135.0), radius: 33.0, count: 10)
-    }
-    
-    func testGetPhotoValidRadius() {
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 35.0, longitude: 135.0), radius: 10.0, count: 10)
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 35.0, longitude: 135.0), radius: 32.99, count: 10)
-        testGetPhotosShouldSuccess(coordinates: Coordinates(latitude: 35.0, longitude: 135.0), radius: 0.01, count: 10)
-    }
-    
-    func testGetPhotosShouldFail(coordinates: Coordinates, radius: Double, count: Int) {
+    func testGetPhotosShouldFail(leftBottom: Coordinates, rightTop: Coordinates) {
         let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() failed")
         
-        flickr.getPhotos(coordinates: coordinates, radius: radius, count: count){
+        flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10){
             photos in
             if(photos.isEmpty) {
                 getPhotosExpectation?.fulfill()
@@ -69,10 +78,10 @@ class FlickrTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
         
-    func testGetPhotosShouldSuccess(coordinates: Coordinates, radius: Double, count: Int) {
+    func testGetPhotosShouldSuccess(leftBottom: Coordinates, rightTop: Coordinates) {
         let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() succeeded")
         
-        flickr.getPhotos(coordinates: coordinates, radius: radius, count: count){
+        flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10){
             photos in
             if(!photos.isEmpty) {
                 getPhotosExpectation?.fulfill()
