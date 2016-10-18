@@ -82,7 +82,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     /// 画像の取得
     private func fetchImage() {
-        guard let url = photo?.urls.largeImageURL else { return }
+        guard let url = photo?.urls.largeImageURL ?? photo?.urls.largeImageURL else { return }
         spinner?.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async {
             var contentsOfURL : Data? = nil

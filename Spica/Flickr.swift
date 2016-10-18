@@ -129,10 +129,10 @@ class Flickr {
      
      TODO: 失敗時の処理。未認証時認証。
      
-     - parameter coordinates: 写真を検索する際の中心座標。
-     - parameter radius: 検索する範囲の広さを指定する。32kmまで。
-     - parameter count: 1回に取得する件数。500件まで。
-     - parameter handler: パースしたデータに対して実行する処理。
+     - parameter coordinates: 写真を検索する際の中心座標
+     - parameter radius: 検索する範囲の広さを指定する。32kmまで
+     - parameter count: 1回に取得する件数。500件まで
+     - parameter handler: パースしたデータに対して実行する処理
     */
     
     func getPhotos(coordinates: Coordinates, radius: Double, count: Int, handler: @escaping ([Photo]) -> ()) {
@@ -144,7 +144,7 @@ class Flickr {
                 "format"         : "json",
                 "radius"         : radius,
                 "method"         : "flickr.photos.search",
-                "extras"         : "geo,owner_name,url_o,url_sq",
+                "extras"         : "geo,owner_name,url_o,url_sq,url_l",
                 "per_page"       : count,
                 "nojsoncallback" : 1
             ],
@@ -173,7 +173,8 @@ extension Flickr {
         let ownerName = json["ownername"].stringValue
         let title = json["title"].stringValue
         let iconURL = json["url_sq"].stringValue
-        let largeURL = json["url_o"].stringValue
+        let largeURL = json["url_l"].stringValue
+        let originalURL = json["url_o"].stringValue
         let coordinates = Coordinates(latitude: json["latitude"].doubleValue, longitude: json["longitude"].doubleValue)
    
         return Photo(
@@ -182,6 +183,7 @@ extension Flickr {
             ownerName: ownerName,
             iconURL: iconURL,
             largeURL: largeURL,
+            originalURL: originalURL,
             photoTitle: title,
             coordinate: coordinates
         )

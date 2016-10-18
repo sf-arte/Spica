@@ -30,6 +30,9 @@ class Photo : NSObject{
          */
         
         /// オリジナルの画像のURL
+        var originalImageURL : URL?
+        
+        /// 長辺1024pxの画像のURL
         var largeImageURL : URL?
         
         /// アイコン画像のURL。75x75pxの画像のURLを返す
@@ -59,8 +62,8 @@ class Photo : NSObject{
     
     
     
-    init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, photoTitle: String, coordinate: Coordinates) {
-        self.urls = URLGenerator(largeImageURL: URL(string: largeURL), iconImageURL: URL(string: iconURL))
+    init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, originalURL: String, photoTitle: String, coordinate: Coordinates) {
+        self.urls = URLGenerator(originalImageURL: URL(string: originalURL), largeImageURL: URL(string: largeURL), iconImageURL: URL(string: iconURL))
         self.id = id
         self.owner = owner
         self.ownerName = ownerName

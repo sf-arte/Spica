@@ -122,8 +122,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// PhotoクラスのiconImageURLで指定された画像を取ってくる。
     ///
-    /// - parameter photos:     Photoの配列。
-    /// - parameter completion: 完了後に行う処理。
+    /// - parameter photos:     Photoの配列
+    /// - parameter completion: 完了後に行う処理
     private func fetchImages(photos: [Photo], completion: @escaping () -> ()) {
         let queue = DispatchQueue.global(qos: .userInitiated)
         queue.async {
@@ -141,7 +141,45 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    /// 地図の表示されている範囲の縦方向の実距離を求める
+    /// 経路を描画する。
+    ///
+    /// - parameter source: 経路の出発地点
+    /// - parameter dest:   経路の目的地
+    private func drawRoute(from source: Coordinates, to dest: Coordinates) {
+        let sourcePlacemark = MKPlacemark(coordinate: source)
+        let destPlacemark = MKPlacemark(coordinate: dest)
+        
+        let source = MKMapItem(placemark: sourcePlacemark)
+        let dest = MKMapItem(placemark: destPlacemark)
+        
+        let request = MKDirectionsRequest()
+        
+        request.source = source
+        request.destination = dest
+        request.requestsAlternateRoutes = false
+        request.transportType = .any
+        
+        let directions = MKDirections(request: request)
+        directions.calculate { response, error in
+            if let error = error {
+                log?.error(error)
+                return
+            }
+            guard let response = response else { return }
+            
+            if (response.routes.isEmpty) {
+                return
+            }
+            
+            self.mapView.add(response.routes[0].polyline)
+            
+            
+        }
+    }
+    
+    /// 地図の表示されている範囲の縦方向の実距離を求める。
+    ///
+    /// - returns: 縦方向の実距離(km)
     private func calculateVerticalRealDistance() -> Double {
         let rect = mapView.visibleMapRect
         let top = MKMapPointMake(MKMapRectGetMidX(rect), MKMapRectGetMinY(rect))
@@ -150,7 +188,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return MKMetersBetweenMapPoints(top, bottom) / 1000.0
     }
     
-    /// 地図の表示されている範囲の横方向の実距離を求める
+    /// 地図の表示されている範囲の横方向の実距離を求める。
+    ///
+    /// - returns: 横方向の実距離(km)
     private func calculateHorizontalRealDistance() -> Double {
         let rect = mapView.visibleMapRect
         let top = MKMapPointMake(MKMapRectGetMinX(rect), MKMapRectGetMidY(rect))
