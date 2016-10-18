@@ -51,11 +51,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         searchingCoordinate = centerCoordinate
         log?.debug(centerCoordinate)
         
+        let rect = mapView.visibleMapRect
+        let leftBottom = MKMapPointMake(MKMapRectGetMinX(rect), MKMapRectGetMaxY(rect))
+        let rightTop = MKMapPointMake(MKMapRectGetMaxX(rect), MKMapRectGetMinY(rect))
+        
+        let leftBottomCoordinate = MKCoordinateForMapPoint(leftBottom)
+        let rightTopCoordinate = MKCoordinateForMapPoint(rightTop)
+        
         mapView.removeAnnotations(mapView.annotations)
         
-        let radius = min(32.0, max(calculateVerticalRealDistance(), calculateHorizontalRealDistance()) * 0.75 / 2.0)
-        
-        flickr?.getPhotos(coordinates: centerCoordinate, radius: radius, count: 50) { [weak self] photos in
+        flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50) { [weak self] photos in
             self?.fetchImages(photos: photos){
                 for photo in photos {
                     log?.debug(photo.coordinate)
@@ -175,28 +180,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             
         }
-    }
-    
-    /// 地図の表示されている範囲の縦方向の実距離を求める。
-    ///
-    /// - returns: 縦方向の実距離(km)
-    private func calculateVerticalRealDistance() -> Double {
-        let rect = mapView.visibleMapRect
-        let top = MKMapPointMake(MKMapRectGetMidX(rect), MKMapRectGetMinY(rect))
-        let bottom = MKMapPointMake(MKMapRectGetMidX(rect), MKMapRectGetMaxY(rect))
-        
-        return MKMetersBetweenMapPoints(top, bottom) / 1000.0
-    }
-    
-    /// 地図の表示されている範囲の横方向の実距離を求める。
-    ///
-    /// - returns: 横方向の実距離(km)
-    private func calculateHorizontalRealDistance() -> Double {
-        let rect = mapView.visibleMapRect
-        let top = MKMapPointMake(MKMapRectGetMinX(rect), MKMapRectGetMidY(rect))
-        let bottom = MKMapPointMake(MKMapRectGetMaxX(rect), MKMapRectGetMidY(rect))
-        
-        return MKMetersBetweenMapPoints(top, bottom) / 1000.0
     }
 
     override func viewDidLoad() {

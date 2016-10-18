@@ -101,6 +101,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    /// 画像を中央に持ってくるように調整
     private func updateScrollInset() {
         scrollView.contentInset = UIEdgeInsetsMake(
             max((scrollView.frame.height - imageView.frame.height) / 2, 0),

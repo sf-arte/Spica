@@ -129,21 +129,20 @@ class Flickr {
      
      TODO: 失敗時の処理。未認証時認証。
      
-     - parameter coordinates: 写真を検索する際の中心座標
-     - parameter radius: 検索する範囲の広さを指定する。32kmまで
+     - parameter leftBottom: 写真を検索する範囲の左下の座標
+     - parameter rightTop: 写真を検索する範囲の右上の座標
      - parameter count: 1回に取得する件数。500件まで
      - parameter handler: パースしたデータに対して実行する処理
     */
     
-    func getPhotos(coordinates: Coordinates, radius: Double, count: Int, handler: @escaping ([Photo]) -> ()) {
+    func getPhotos(leftBottom: Coordinates, rightTop: Coordinates, count: Int, handler: @escaping ([Photo]) -> ()) {
         oauthSwift.client.get(apiURL,
             parameters: [
                 "api_key"        : params.consumerKey,
-                "lat"            : coordinates.latitude,
-                "lon"            : coordinates.longitude,
                 "format"         : "json",
-                "radius"         : radius,
+                "bbox"           : "\(leftBottom.longitude),\(leftBottom.latitude),\(rightTop.longitude),\(rightTop.latitude)",
                 "method"         : "flickr.photos.search",
+                "sort"           : "interestingness-desc",
                 "extras"         : "geo,owner_name,url_o,url_sq,url_l",
                 "per_page"       : count,
                 "nojsoncallback" : 1
