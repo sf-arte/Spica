@@ -21,9 +21,8 @@ Flickrの写真の位置情報から人気のある場所を推測して、リ�
 * 撮影場所の取得
 
 ### インターフェース
-![メインUI](https://github.com/sf-arte/Spica/blob/master/doc_files/mainUI.png)
-![リストUI](https://github.com/sf-arte/Spica/blob/master/doc_files/listUI.png)
-![詳細UI](https://github.com/sf-arte/Spica/blob/master/doc_files/detailUI.png)
+![Map View](https://github.com/sf-arte/Spica/blob/master/doc_files/mapview.png)
+![Image View](https://github.com/sf-arte/Spica/blob/master/doc_files/imageview.png)
 
 ### 使用方法
 初回起動時にflickrのページがブラウザで開かれるので、ログインしてアプリの連携を許可する。  
