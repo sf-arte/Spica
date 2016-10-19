@@ -14,6 +14,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     var photo : Photo? {
         didSet {
+            image = nil
+            
             if view.window != nil {
                 fetchImage()
             }
@@ -22,17 +24,25 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    var photos : [Photo]?
+    
+    private var imageHolder : [URL : UIImage] = [:]
+    
     private var imageView = UIImageView()
     
     private var image: UIImage? {
         get {
             return imageView.image
         } set {
+            scrollView?.zoomScale = 1.0
             imageView.image = newValue
             imageView.sizeToFit()
-            scrollView?.contentSize = imageView.frame.size
-            scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width
-            scrollView.zoomScale = scrollView.minimumZoomScale
+            if newValue != nil {
+                scrollView?.contentSize = imageView.frame.size
+                scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width
+                log?.debug(self.scrollView.minimumZoomScale)
+                scrollView.zoomScale = scrollView.minimumZoomScale
+            }
         }
     }
     
@@ -77,6 +87,25 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    /// スワイプ時の処理
+    @IBAction func recognizeSwipe(_ sender: UISwipeGestureRecognizer) {
+        guard let photo = photo,
+            let photos = photos,
+            let index = photos.index(of: photo) else { return }
+        
+        let count = photos.count
+        
+        if sender.direction == .right {
+            if index + 1 < count {
+                self.photo = photos[index + 1]
+            }
+        } else if sender.direction == .left {
+            if index - 1 >= 0 {
+                self.photo = photos[index - 1]
+            }
+        }
+    }
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
@@ -88,6 +117,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     /// 画像の取得
     private func fetchImage() {
         guard let url = photo?.urls.originalImageURL ?? photo?.urls.largeImageURL else { return }
+        // 既に取得していたらそれを使う
+        if let image = imageHolder[url] {
+            self.image = image
+            return
+        }
+        
         fetchingURL = url
         spinner?.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async {
@@ -100,8 +135,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             DispatchQueue.main.async {
                 if url == self.fetchingURL, let contents = contentsOfURL {
                     self.image = UIImage(data: contents)
+                    self.imageHolder[url] = self.image
+                    self.spinner?.stopAnimating()
                 }
-                self.spinner?.stopAnimating()
             }
 
         }

@@ -55,7 +55,6 @@
 		6BCE2D1B1D9A2CCB000CB38D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		6BE5A0DF1DAE07FF008CB92B /* OAuthSwiftFuturesIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftFuturesIOS.framework; path = Carthage/Build/iOS/OAuthSwiftFuturesIOS.framework; sourceTree = "<group>"; };
 		6BE5A0EB1DAE144C008CB92B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6BE5A0F41DAE221D008CB92B /* SpicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE5A0F81DAE221D008CB92B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -90,7 +89,6 @@
 			children = (
 				6BE5A1041DAE3640008CB92B /* XCGLogger.framework */,
 				6BE5A0EB1DAE144C008CB92B /* XCTest.framework */,
-				6BE5A0DF1DAE07FF008CB92B /* OAuthSwiftFuturesIOS.framework */,
 				6BDCC41E1DA4F91400B5DE62 /* MapKit.framework */,
 				6BDCC41C1DA4EF1300B5DE62 /* CoreLocation.framework */,
 				6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */,

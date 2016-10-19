@@ -51,17 +51,17 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="QrO-Qc-43o" firstAttribute="centerY" secondItem="h4c-qP-O6E" secondAttribute="centerY" id="0GW-B8-gCL"/>
-                            <constraint firstItem="NoT-xx-RvP" firstAttribute="leading" secondItem="Vum-c4-DXg" secondAttribute="leading" id="7eQ-5v-tPc"/>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="Bhf-ak-5SK"/>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="top" secondItem="NJC-Gd-45T" secondAttribute="bottom" id="GuN-eS-PUP"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="h4c-qP-O6E" secondAttribute="leading" id="1gf-AN-s4A"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="top" secondItem="NoT-xx-RvP" secondAttribute="bottom" id="CKc-RJ-vFw"/>
                             <constraint firstItem="NoT-xx-RvP" firstAttribute="trailing" secondItem="iqx-kE-Yv5" secondAttribute="trailing" id="JLO-nf-Gd9"/>
-                            <constraint firstItem="iqx-kE-Yv5" firstAttribute="leading" secondItem="Vum-c4-DXg" secondAttribute="leading" id="LQg-Yd-dNe"/>
                             <constraint firstItem="iqx-kE-Yv5" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="OPt-xt-X81"/>
-                            <constraint firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="QCe-Qe-MYu"/>
-                            <constraint firstItem="NoT-xx-RvP" firstAttribute="top" secondItem="Vum-c4-DXg" secondAttribute="top" id="d2Q-zS-j1Q"/>
-                            <constraint firstItem="iqx-kE-Yv5" firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="pVV-Nd-9bh"/>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="centerX" secondItem="QrO-Qc-43o" secondAttribute="centerX" id="qeZ-mm-Htx"/>
-                            <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="h4c-qP-O6E" secondAttribute="leading" id="yb9-r4-64f"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="NoT-xx-RvP" secondAttribute="leading" id="Oil-Nj-04n"/>
+                            <constraint firstItem="NoT-xx-RvP" firstAttribute="top" secondItem="NJC-Gd-45T" secondAttribute="bottom" id="VuH-kT-flX"/>
+                            <constraint firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="YaU-Es-aBD"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="trailing" secondItem="NoT-xx-RvP" secondAttribute="trailing" id="YfH-7K-TeI"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="centerX" secondItem="QrO-Qc-43o" secondAttribute="centerX" id="blx-Fk-NNB"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="iqx-kE-Yv5" secondAttribute="leading" id="eGe-Z2-d2G"/>
+                            <constraint firstItem="Vum-c4-DXg" firstAttribute="bottom" secondItem="iqx-kE-Yv5" secondAttribute="top" id="gyH-8L-Fv8"/>
                         </constraints>
                     </view>
                     <connections>
@@ -96,7 +96,13 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bhP-zY-vPK">
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4V-hO-84A"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4V-hO-84A">
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="hLf-hG-RYW" appends="YES" id="Ghg-Fp-YR2"/>
+                                    <outletCollection property="gestureRecognizers" destination="oI5-g5-9cb" appends="YES" id="7sa-Rc-qhh"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZnC-Ad-0ug">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="33" id="QI8-lx-3dL"/>
@@ -159,6 +165,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jto-n1-17A" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="K1C-pA-BjW" userLabel="Exit" sceneMemberID="exit"/>
+                <swipeGestureRecognizer direction="right" id="hLf-hG-RYW">
+                    <connections>
+                        <action selector="recognizeSwipe:" destination="qBd-So-Ecf" id="p3H-FW-O5p"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="oI5-g5-9cb">
+                    <connections>
+                        <action selector="recognizeSwipe:" destination="qBd-So-Ecf" id="e23-19-X32"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="72.413793103448285"/>
         </scene>

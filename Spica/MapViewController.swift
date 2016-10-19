@@ -245,6 +245,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             guard let viewController = segue.destination as? ImageViewController else { fatalError() }
             guard let annotation = (sender as? MKAnnotationView)?.annotation as? Photo else { return }
             viewController.photo = annotation
+            viewController.photos = mapView.annotations.map { $0 as? Photo }.flatMap { $0 }
         }
     }
     
