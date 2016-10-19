@@ -32,7 +32,7 @@
                                 <items>
                                     <barButtonItem title="現在地" id="KxU-fk-85J">
                                         <connections>
-                                            <action selector="showCurrentPosition:" destination="qzi-PN-MNh" id="BBQ-OL-ZqX"/>
+                                            <action selector="showCurrentLocation:" destination="qzi-PN-MNh" id="tx6-gW-9kZ"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Yri-cb-YvE"/>
@@ -43,16 +43,22 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="NoT-xx-RvP">
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="QrO-Qc-43o" firstAttribute="centerY" secondItem="h4c-qP-O6E" secondAttribute="centerY" id="0GW-B8-gCL"/>
+                            <constraint firstItem="NoT-xx-RvP" firstAttribute="leading" secondItem="Vum-c4-DXg" secondAttribute="leading" id="7eQ-5v-tPc"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="Bhf-ak-5SK"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="top" secondItem="NJC-Gd-45T" secondAttribute="bottom" id="GuN-eS-PUP"/>
+                            <constraint firstItem="NoT-xx-RvP" firstAttribute="trailing" secondItem="iqx-kE-Yv5" secondAttribute="trailing" id="JLO-nf-Gd9"/>
                             <constraint firstItem="iqx-kE-Yv5" firstAttribute="leading" secondItem="Vum-c4-DXg" secondAttribute="leading" id="LQg-Yd-dNe"/>
                             <constraint firstItem="iqx-kE-Yv5" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="OPt-xt-X81"/>
                             <constraint firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="QCe-Qe-MYu"/>
+                            <constraint firstItem="NoT-xx-RvP" firstAttribute="top" secondItem="Vum-c4-DXg" secondAttribute="top" id="d2Q-zS-j1Q"/>
                             <constraint firstItem="iqx-kE-Yv5" firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="pVV-Nd-9bh"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="centerX" secondItem="QrO-Qc-43o" secondAttribute="centerX" id="qeZ-mm-Htx"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="h4c-qP-O6E" secondAttribute="leading" id="yb9-r4-64f"/>
@@ -61,6 +67,7 @@
                     <connections>
                         <outlet property="currentLocationButton" destination="KxU-fk-85J" id="fd3-NX-bWf"/>
                         <outlet property="mapView" destination="Vum-c4-DXg" id="C83-BD-CPw"/>
+                        <outlet property="searchBar" destination="NoT-xx-RvP" id="fsx-tC-34u"/>
                         <outlet property="spinner" destination="QrO-Qc-43o" id="rdr-JN-TJN"/>
                         <segue destination="qBd-So-Ecf" kind="presentation" identifier="Show Image" id="vz9-TK-ROh"/>
                     </connections>

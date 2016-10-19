@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
     
     /// MARK: 定数
     
@@ -21,6 +21,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
             mapView.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.delegate = self
         }
     }
     
@@ -46,36 +52,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// 検索ボタンに対応するメソッド
     @IBAction func search(_ sender: UIBarButtonItem) {
-        spinner?.startAnimating()
-        let centerCoordinate = mapView.centerCoordinate
-        searchingCoordinate = centerCoordinate
-        log?.debug(centerCoordinate)
-        
-        let rect = mapView.visibleMapRect
-        let leftBottom = MKMapPointMake(MKMapRectGetMinX(rect), MKMapRectGetMaxY(rect))
-        let rightTop = MKMapPointMake(MKMapRectGetMaxX(rect), MKMapRectGetMinY(rect))
-        
-        let leftBottomCoordinate = MKCoordinateForMapPoint(leftBottom)
-        let rightTopCoordinate = MKCoordinateForMapPoint(rightTop)
-        
-        mapView.removeAnnotations(mapView.annotations)
-        
-        flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50) { [weak self] photos in
-            self?.fetchImages(photos: photos){
-                for photo in photos {
-                    log?.debug(photo.coordinate)
-                }
-                if let strongSelf = self, strongSelf.searchingCoordinate == centerCoordinate {
-                    strongSelf.mapView.addAnnotations(photos)
-                    strongSelf.mapView.showAnnotations(photos, animated: true)
-                    strongSelf.spinner.stopAnimating()
-                }
-            }
-        }
+        getPhotos(text: searchBar.text)
     }
     
     /// 現在地を表示する
-    @IBAction func showCurrentPosition(_ sender: UIBarButtonItem) {
+    @IBAction func showCurrentLocation(_ sender: UIBarButtonItem) {
         locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -128,9 +109,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             // 見た目の調整
             view.layer.borderColor = UIColor.white.cgColor
             view.layer.borderWidth = 1
-            // view.layer.shadowOffset = CGSize(width: 2, height: 2)
-            // view.layer.shadowRadius = 3
-            // view.layer.shadowOpacity = 0.5
         }
         
         return view
@@ -151,6 +129,37 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         renderer.strokeColor = UIColor.blue
         
         return renderer
+    }
+    
+    /// 検索バーのキーボードで検索ボタンが押された時の処理
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        getPhotos(text: searchBar.text)
+    }
+    
+    /// Flickr.getPhotos()を呼び、サムネイル画像を地図上にプロットする
+    private func getPhotos(text: String? = nil) {
+        spinner?.startAnimating()
+        let centerCoordinate = mapView.centerCoordinate
+        searchingCoordinate = centerCoordinate
+        
+        let rect = mapView.visibleMapRect
+        let leftBottom = MKMapPointMake(MKMapRectGetMinX(rect), MKMapRectGetMaxY(rect))
+        let rightTop = MKMapPointMake(MKMapRectGetMaxX(rect), MKMapRectGetMinY(rect))
+        
+        let leftBottomCoordinate = MKCoordinateForMapPoint(leftBottom)
+        let rightTopCoordinate = MKCoordinateForMapPoint(rightTop)
+        
+        mapView.removeAnnotations(mapView.annotations)
+        
+        flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50, text: text) { [weak self] photos in
+            self?.fetchImages(photos: photos){
+                if let strongSelf = self, strongSelf.searchingCoordinate == centerCoordinate {
+                    strongSelf.mapView.addAnnotations(photos)
+                    strongSelf.mapView.showAnnotations(photos, animated: true)
+                    strongSelf.spinner.stopAnimating()
+                }
+            }
+        }
     }
     
     /// PhotoクラスのiconImageURLで指定された画像を取ってくる。

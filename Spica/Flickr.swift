@@ -133,9 +133,10 @@ class Flickr {
      - parameter rightTop: 写真を検索する範囲の右上の座標
      - parameter count: 1回に取得する件数。500件まで
      - parameter handler: パースしたデータに対して実行する処理
+     - parameter text: 検索する文字列
     */
     
-    func getPhotos(leftBottom: Coordinates, rightTop: Coordinates, count: Int, handler: @escaping ([Photo]) -> ()) {
+    func getPhotos(leftBottom: Coordinates, rightTop: Coordinates, count: Int, text: String?, handler: @escaping ([Photo]) -> ()) {
         // 東経180度線を跨ぐ時の処理。180度線で2つに分割する
         if leftBottom.longitude > rightTop.longitude {
             let leftLongitudeDifference = 180.0 - leftBottom.longitude
@@ -146,12 +147,14 @@ class Flickr {
             getPhotos(
                 leftBottom: leftBottom,
                 rightTop: Coordinates(latitude: rightTop.latitude, longitude: 180.0),
-                count: leftCount
+                count: leftCount,
+                text: text
             ) { [weak self] leftPhotos in
                 self?.getPhotos(
                     leftBottom: Coordinates(latitude: leftBottom.latitude, longitude: -180.0),
                     rightTop: rightTop,
-                    count: rightCount
+                    count: rightCount,
+                    text: text
                 ) { rightPhotos in
                     handler(leftPhotos + rightPhotos)
                 }
@@ -160,17 +163,23 @@ class Flickr {
             return
         }
         
+        var parameters : OAuthSwift.Parameters = [
+            "api_key"        : params.consumerKey,
+            "format"         : "json",
+            "bbox"           : "\(leftBottom.longitude),\(leftBottom.latitude),\(rightTop.longitude),\(rightTop.latitude)",
+            "method"         : "flickr.photos.search",
+            "sort"           : "interestingness-desc", // not working
+            "extras"         : "geo,owner_name,url_o,url_sq,url_l",
+            "per_page"       : count,
+            "nojsoncallback" : 1
+        ]
+        
+        if let text = text, text != "" {
+            parameters["text"] = text
+        }
+        
         oauthSwift.client.get(apiURL,
-            parameters: [
-                "api_key"        : params.consumerKey,
-                "format"         : "json",
-                "bbox"           : "\(leftBottom.longitude),\(leftBottom.latitude),\(rightTop.longitude),\(rightTop.latitude)",
-                "method"         : "flickr.photos.search",
-                "sort"           : "interestingness-desc", // not working
-                "extras"         : "geo,owner_name,url_o,url_sq,url_l",
-                "per_page"       : count,
-                "nojsoncallback" : 1
-            ],
+            parameters: parameters,
             headers: nil,
             success: { data, response in
                 let json = JSON(data: data)
