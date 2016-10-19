@@ -85,6 +85,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
     }
+    
+    // 長押しを検知した時経路検索をする
+    @IBAction func recognizeLongPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state != .began {
+            return
+        }
+        
+        let location = sender.location(in: mapView)
+        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
+        
+        drawRoute(from: mapView.userLocation.coordinate, to: coordinate)
+        
+    }
+    
 
     /// 位置情報の更新に成功した時呼ばれる
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -130,6 +144,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.deselectAnnotation(view.annotation, animated: false)
     }
     
+    /// overlayの描画
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.lineWidth = 2.0
+        renderer.strokeColor = UIColor.blue
+        
+        return renderer
+    }
+    
     /// PhotoクラスのiconImageURLで指定された画像を取ってくる。
     ///
     /// - parameter photos:     Photoの配列
@@ -167,7 +190,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         request.source = source
         request.destination = dest
         request.requestsAlternateRoutes = false
-        request.transportType = .any
+        request.transportType = .walking
         
         let directions = MKDirections(request: request)
         directions.calculate { response, error in
@@ -181,8 +204,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 return
             }
             
+            self.mapView.removeOverlays(self.mapView.overlays)
             self.mapView.add(response.routes[0].polyline)
-            
             
         }
     }

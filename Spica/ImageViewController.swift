@@ -17,7 +17,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             if view.window != nil {
                 fetchImage()
             }
-            titleLabel.text = photo?.title
+            titleLabel.text = photo?.title == "" ? " " : photo?.title
             userNameLabel.text = photo?.ownerName
         }
     }
