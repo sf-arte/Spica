@@ -43,11 +43,6 @@ class FlickrTests: XCTestCase {
             leftBottom: Coordinates(latitude: 35.0, longitude: -180.1),
             rightTop:   Coordinates(latitude: 36.0, longitude: 136.0)
         )
-        
-        testGetPhotosShouldFail(
-            leftBottom: Coordinates(latitude: 35.0, longitude: 175.0),
-            rightTop:   Coordinates(latitude: 40.0, longitude: -175.0)
-        )
     }
     
     func testGetPhotosValidCoordinate() {
@@ -62,6 +57,10 @@ class FlickrTests: XCTestCase {
         testGetPhotosShouldSuccess(
             leftBottom: Coordinates(latitude: -90.0, longitude: -180.0),
             rightTop:   Coordinates(latitude: 90.0, longitude: 180.0)
+        )
+        testGetPhotosShouldSuccess(
+            leftBottom: Coordinates(latitude: 35.0, longitude: 175.0),
+            rightTop:   Coordinates(latitude: 40.0, longitude: -175.0)
         )
     }
     

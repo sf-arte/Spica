@@ -17,18 +17,7 @@ import MapKit
 class Photo : NSObject{
     
     /// URL計算用struct
-    struct URLGenerator {
-        /*
-        let secret : String
-        let server : Int
-        let farm : Int
-        let id : Int
-        
-        private var baseURL : String {
-            return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)"
-        }
-         */
-        
+    struct URLHolder {
         /// オリジナルの画像のURL
         var originalImageURL : URL?
         
@@ -40,7 +29,7 @@ class Photo : NSObject{
     }
     
     /// 画像の各サイズのURL
-    let urls : URLGenerator
+    let urls : URLHolder
     
     /// 写真のユニークID
     let id : Int
@@ -63,7 +52,7 @@ class Photo : NSObject{
     
     
     init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, originalURL: String, photoTitle: String, coordinate: Coordinates) {
-        self.urls = URLGenerator(originalImageURL: URL(string: originalURL), largeImageURL: URL(string: largeURL), iconImageURL: URL(string: iconURL))
+        self.urls = URLHolder(originalImageURL: URL(string: originalURL), largeImageURL: URL(string: largeURL), iconImageURL: URL(string: iconURL))
         self.id = id
         self.owner = owner
         self.ownerName = ownerName

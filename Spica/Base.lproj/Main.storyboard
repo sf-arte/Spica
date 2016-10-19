@@ -94,14 +94,39 @@
                                     <segue destination="K1C-pA-BjW" kind="unwind" unwindAction="unwindWithSegue:" id="fFm-kd-adn"/>
                                 </connections>
                             </button>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7g3-aq-XS9">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Kp2-cI-3eN"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iph-Ga-30M">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLb-wd-mU4">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="7g3-aq-XS9" firstAttribute="leading" secondItem="b4V-hO-84A" secondAttribute="leading" id="0CA-1V-nsh"/>
                             <constraint firstAttribute="trailing" secondItem="b4V-hO-84A" secondAttribute="trailing" id="5Ha-hP-ov9"/>
+                            <constraint firstItem="TLb-wd-mU4" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leadingMargin" constant="20" id="7We-TE-Uki"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="iph-Ga-30M" secondAttribute="trailing" constant="30" id="922-ii-sT5"/>
+                            <constraint firstItem="iph-Ga-30M" firstAttribute="top" secondItem="TLb-wd-mU4" secondAttribute="top" id="Fil-pI-4mU"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="TLb-wd-mU4" secondAttribute="trailing" constant="100" id="H51-UX-Vbr"/>
                             <constraint firstItem="b4V-hO-84A" firstAttribute="bottom" secondItem="7TL-Qo-3sd" secondAttribute="top" id="HhH-Zt-jgk"/>
                             <constraint firstItem="b4V-hO-84A" firstAttribute="top" secondItem="V0J-WW-dSU" secondAttribute="top" id="Nft-Ps-zs2"/>
+                            <constraint firstItem="iph-Ga-30M" firstAttribute="leading" secondItem="TLb-wd-mU4" secondAttribute="trailing" constant="13" id="QO3-vU-QIw"/>
+                            <constraint firstItem="7g3-aq-XS9" firstAttribute="trailing" secondItem="b4V-hO-84A" secondAttribute="trailing" id="X9r-rW-f9K"/>
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerX" secondItem="b4V-hO-84A" secondAttribute="centerX" id="fv1-Tf-nMY"/>
+                            <constraint firstItem="7g3-aq-XS9" firstAttribute="bottom" secondItem="7TL-Qo-3sd" secondAttribute="top" id="ht5-7J-6q1"/>
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerY" secondItem="b4V-hO-84A" secondAttribute="centerY" id="jhR-qk-3n4"/>
+                            <constraint firstItem="7g3-aq-XS9" firstAttribute="top" secondItem="TLb-wd-mU4" secondAttribute="bottom" constant="-28" id="slD-DM-QFI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZnC-Ad-0ug" secondAttribute="trailing" constant="5" id="wLK-zN-Do0"/>
                             <constraint firstItem="b4V-hO-84A" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leading" id="yVX-Id-0bC"/>
                             <constraint firstItem="ZnC-Ad-0ug" firstAttribute="top" secondItem="oOU-WS-wy6" secondAttribute="bottom" constant="5" id="ywF-Si-S8j"/>
@@ -110,6 +135,8 @@
                     <connections>
                         <outlet property="scrollView" destination="b4V-hO-84A" id="Bxo-YK-KH6"/>
                         <outlet property="spinner" destination="bhP-zY-vPK" id="XyE-9L-dW6"/>
+                        <outlet property="titleLabel" destination="TLb-wd-mU4" id="O9P-8G-8lt"/>
+                        <outlet property="userNameLabel" destination="iph-Ga-30M" id="1Ex-kA-BlZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jto-n1-17A" userLabel="First Responder" sceneMemberID="firstResponder"/>

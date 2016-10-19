@@ -177,7 +177,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             guard let response = response else { return }
             
-            if (response.routes.isEmpty) {
+            if response.routes.isEmpty {
                 return
             }
             
@@ -195,11 +195,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let center = CLLocationCoordinate2DMake(35.681382 , 139.766084)
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         mapView.region = MKCoordinateRegionMake(center, span)
-        
-        // とりあえず現在地を表示
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-        }
         
         
     }

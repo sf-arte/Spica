@@ -17,6 +17,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             if view.window != nil {
                 fetchImage()
             }
+            titleLabel.text = photo?.title
+            userNameLabel.text = photo?.ownerName
         }
     }
     
@@ -33,6 +35,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.zoomScale = scrollView.minimumZoomScale
         }
     }
+    
+    private var fetchingURL : URL?
 
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
@@ -44,6 +48,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     /// MARK: メソッド
     
@@ -70,8 +77,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
@@ -82,7 +87,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     /// 画像の取得
     private func fetchImage() {
-        guard let url = photo?.urls.largeImageURL ?? photo?.urls.largeImageURL else { return }
+        guard let url = photo?.urls.originalImageURL ?? photo?.urls.largeImageURL else { return }
+        fetchingURL = url
         spinner?.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async {
             var contentsOfURL : Data? = nil
@@ -92,7 +98,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 log?.error(error)
             }
             DispatchQueue.main.async {
-                if url == self.photo?.urls.largeImageURL, let contents = contentsOfURL {
+                if url == self.fetchingURL, let contents = contentsOfURL {
                     self.image = UIImage(data: contents)
                 }
                 self.spinner?.stopAnimating()
@@ -111,15 +117,5 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         )
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
