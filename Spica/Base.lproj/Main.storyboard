@@ -43,7 +43,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="NoT-xx-RvP">
+                            <searchBar contentMode="redraw" placeholder="このエリア内で検索" translatesAutoresizingMaskIntoConstraints="NO" id="NoT-xx-RvP">
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>

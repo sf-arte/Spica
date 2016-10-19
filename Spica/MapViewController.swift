@@ -116,8 +116,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// Annotationが選択された時の処理
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if !(view.annotation is MKUserLocation) {
-            performSegue(withIdentifier: ShowImageSegueIdentifier, sender: view)
+        if let photo = view.annotation as? Photo {
+            if photo.urls.originalImageURL != nil || photo.urls.largeImageURL != nil {
+                performSegue(withIdentifier: ShowImageSegueIdentifier, sender: view)
+            }
         }
         mapView.deselectAnnotation(view.annotation, animated: false)
     }
@@ -134,6 +136,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// 検索バーのキーボードで検索ボタンが押された時の処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         getPhotos(text: searchBar.text)
+        
+        searchBar.resignFirstResponder()
     }
     
     /// Flickr.getPhotos()を呼び、サムネイル画像を地図上にプロットする
@@ -151,7 +155,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         mapView.removeAnnotations(mapView.annotations)
         
-        flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50, text: text) { [weak self] photos in
+        flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50, text: text) {
+            [weak self] photos in
             self?.fetchImages(photos: photos){
                 if let strongSelf = self, strongSelf.searchingCoordinate == centerCoordinate {
                     strongSelf.mapView.addAnnotations(photos)
@@ -227,8 +232,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let center = CLLocationCoordinate2DMake(35.681382 , 139.766084)
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         mapView.region = MKCoordinateRegionMake(center, span)
-        
-        
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -241,6 +245,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             guard let viewController = segue.destination as? ImageViewController else { fatalError() }
             guard let annotation = (sender as? MKAnnotationView)?.annotation as? Photo else { return }
             viewController.photo = annotation
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.searchBar.isFirstResponder {
+            self.searchBar.resignFirstResponder()
         }
     }
 
