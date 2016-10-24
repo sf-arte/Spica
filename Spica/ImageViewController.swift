@@ -43,6 +43,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 scrollView?.contentSize = imageView.frame.size
                 scrollView.minimumZoomScale = min(scrollView.frame.size.height / image.size.height, scrollView.frame.size.width / image.size.width)
                 scrollView.zoomScale = scrollView.minimumZoomScale
+                updateScrollInset()
             }
         }
     }
@@ -79,12 +80,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         if image == nil {
             fetchImage()
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        updateScrollInset()
     }
 
     override func didReceiveMemoryWarning() {
