@@ -22,12 +22,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             
             titleLabel.text = photo?.title == "" ? " " : photo?.title
             userNameLabel.text = photo?.ownerName
-            
         }
     }
     
     var photos : [Photo]?
     
+    /// ダウンロードした画像を格納する
     private var imageHolder : [URL : UIImage] = [:]
     
     private var imageView = UIImageView()
@@ -39,10 +39,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView?.zoomScale = 1.0
             imageView.image = newValue
             imageView.sizeToFit()
-            if newValue != nil {
+            if let image = newValue {
                 scrollView?.contentSize = imageView.frame.size
-                scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width
-                log?.debug(self.scrollView.minimumZoomScale)
+                scrollView.minimumZoomScale = min(scrollView.frame.size.height / image.size.height, scrollView.frame.size.width / image.size.width)
                 scrollView.zoomScale = scrollView.minimumZoomScale
             }
         }
@@ -64,13 +63,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     
-    
-    
     /// MARK: メソッド
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.addSubview(imageView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanging(notification:)), name: .UIDeviceOrientationDidChange, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,7 +111,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    // ダブルタップの処理
+    /// ダブルタップの処理
     @IBAction func recognizeTap(_ sender: UITapGestureRecognizer) {
         let scale = scrollView.zoomScale == scrollView.minimumZoomScale ? 1.0 : scrollView.minimumZoomScale
 
@@ -125,6 +126,13 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         updateScrollInset()
+    }
+    
+    func onOrientationChanging(notification: Notification) {
+        if let image = image {
+            scrollView.minimumZoomScale = min(scrollView.frame.size.height / image.size.height, scrollView.frame.size.width / image.size.width)
+            
+        }
     }
     
     /// 画像の取得
@@ -144,6 +152,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 contentsOfURL = try Data(contentsOf: url)
             } catch let error {
                 log?.error(error)
+                self.spinner?.stopAnimating()
+                return
             }
             DispatchQueue.main.async {
                 if url == self.fetchingURL, let contents = contentsOfURL {
@@ -152,7 +162,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                     self.spinner?.stopAnimating()
                 }
             }
-
         }
     }
     
@@ -166,5 +175,4 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         )
     }
     
-
 }

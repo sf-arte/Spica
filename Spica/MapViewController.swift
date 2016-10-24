@@ -34,7 +34,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    var flickr : Flickr? = {
+    @IBOutlet weak var routeDurationLabel: UILabel!
+    
+    private let flickr : Flickr? = {
         guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
         guard let params = Flickr.OAuthParams(path: path) else { return nil }
         
@@ -174,7 +176,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let leftBottomCoordinate = MKCoordinateForMapPoint(leftBottom)
         let rightTopCoordinate = MKCoordinateForMapPoint(rightTop)
         
-        self.mapView.removeOverlays(self.mapView.overlays)
+        clearRoute()
         mapView.removeAnnotations(mapView.annotations)
         
         flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50, text: text) {
@@ -241,19 +243,30 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 return
             }
             
-            self.mapView.removeOverlays(self.mapView.overlays)
+            self.clearRoute()
             
-            if let polyline = response.routes.first?.polyline {
-                self.mapView.add(polyline)
+            if let route = response.routes.first {
+                self.mapView.add(route.polyline)
+                
+                let distanceFormatter = MKDistanceFormatter()
+                distanceFormatter.units = .metric
+                let distance = distanceFormatter.string(fromDistance: route.distance)
+                
+                self.routeDurationLabel.text = "\(distance) \(route.expectedTravelTime.string)"
                 
                 if animated {
                     self.mapView.showAnnotations([source, dest], animated: true)
                 }
             }
-            
         }
-        
     }
+    
+    /// 経路を削除
+    private func clearRoute() {
+        mapView.removeOverlays(mapView.overlays)
+        routeDurationLabel.text = ""
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

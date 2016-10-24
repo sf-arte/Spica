@@ -46,6 +46,14 @@
                             <searchBar contentMode="redraw" placeholder="このエリア内で検索" translatesAutoresizingMaskIntoConstraints="NO" id="NoT-xx-RvP">
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19T-hN-9IX">
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="dsT-ob-aaO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -53,6 +61,8 @@
                             <constraint firstItem="QrO-Qc-43o" firstAttribute="centerY" secondItem="h4c-qP-O6E" secondAttribute="centerY" id="0GW-B8-gCL"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="h4c-qP-O6E" secondAttribute="leading" id="1gf-AN-s4A"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="top" secondItem="NoT-xx-RvP" secondAttribute="bottom" id="CKc-RJ-vFw"/>
+                            <constraint firstItem="19T-hN-9IX" firstAttribute="centerX" secondItem="iqx-kE-Yv5" secondAttribute="centerX" id="Gif-Hj-kuR"/>
+                            <constraint firstItem="19T-hN-9IX" firstAttribute="centerY" secondItem="iqx-kE-Yv5" secondAttribute="centerY" id="H1e-el-D0v"/>
                             <constraint firstItem="NoT-xx-RvP" firstAttribute="trailing" secondItem="iqx-kE-Yv5" secondAttribute="trailing" id="JLO-nf-Gd9"/>
                             <constraint firstItem="iqx-kE-Yv5" firstAttribute="bottom" secondItem="vip-m9-55c" secondAttribute="top" id="OPt-xt-X81"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="NoT-xx-RvP" secondAttribute="leading" id="Oil-Nj-04n"/>
@@ -60,6 +70,7 @@
                             <constraint firstAttribute="trailing" secondItem="Vum-c4-DXg" secondAttribute="trailing" id="YaU-Es-aBD"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="trailing" secondItem="NoT-xx-RvP" secondAttribute="trailing" id="YfH-7K-TeI"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="centerX" secondItem="QrO-Qc-43o" secondAttribute="centerX" id="blx-Fk-NNB"/>
+                            <constraint firstItem="vip-m9-55c" firstAttribute="top" secondItem="19T-hN-9IX" secondAttribute="bottom" constant="11" id="c48-7K-W39"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="leading" secondItem="iqx-kE-Yv5" secondAttribute="leading" id="eGe-Z2-d2G"/>
                             <constraint firstItem="Vum-c4-DXg" firstAttribute="bottom" secondItem="iqx-kE-Yv5" secondAttribute="top" id="gyH-8L-Fv8"/>
                         </constraints>
@@ -67,6 +78,7 @@
                     <connections>
                         <outlet property="currentLocationButton" destination="KxU-fk-85J" id="fd3-NX-bWf"/>
                         <outlet property="mapView" destination="Vum-c4-DXg" id="C83-BD-CPw"/>
+                        <outlet property="routeDurationLabel" destination="19T-hN-9IX" id="Ubh-zC-NLx"/>
                         <outlet property="searchBar" destination="NoT-xx-RvP" id="fsx-tC-34u"/>
                         <outlet property="spinner" destination="QrO-Qc-43o" id="rdr-JN-TJN"/>
                         <segue destination="qBd-So-Ecf" kind="presentation" identifier="Show Image" id="vz9-TK-ROh"/>
