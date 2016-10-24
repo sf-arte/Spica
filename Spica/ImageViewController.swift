@@ -19,8 +19,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             if view.window != nil {
                 fetchImage()
             }
+            
             titleLabel.text = photo?.title == "" ? " " : photo?.title
             userNameLabel.text = photo?.ownerName
+            
         }
     }
     
@@ -103,6 +105,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             if index - 1 >= 0 {
                 self.photo = photos[index - 1]
             }
+        }
+    }
+    
+    // ダブルタップの処理
+    @IBAction func recognizeTap(_ sender: UITapGestureRecognizer) {
+        let scale = scrollView.zoomScale == scrollView.minimumZoomScale ? 1.0 : scrollView.minimumZoomScale
+
+        UIView.animate(withDuration: 0.5) {
+            self.scrollView.zoomScale = scale
         }
     }
     

@@ -99,8 +99,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4V-hO-84A">
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="hLf-hG-RYW" appends="YES" id="Ghg-Fp-YR2"/>
-                                    <outletCollection property="gestureRecognizers" destination="oI5-g5-9cb" appends="YES" id="7sa-Rc-qhh"/>
+                                    <outletCollection property="gestureRecognizers" destination="TAx-UQ-zqt" appends="YES" id="2rE-HF-cIn"/>
                                 </connections>
                             </scrollView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZnC-Ad-0ug">
@@ -139,7 +138,7 @@
                         <constraints>
                             <constraint firstItem="7g3-aq-XS9" firstAttribute="leading" secondItem="b4V-hO-84A" secondAttribute="leading" id="0CA-1V-nsh"/>
                             <constraint firstAttribute="trailing" secondItem="b4V-hO-84A" secondAttribute="trailing" id="5Ha-hP-ov9"/>
-                            <constraint firstItem="TLb-wd-mU4" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leadingMargin" constant="20" id="7We-TE-Uki"/>
+                            <constraint firstItem="TLb-wd-mU4" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leadingMargin" constant="13" id="7We-TE-Uki"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="iph-Ga-30M" secondAttribute="trailing" constant="30" id="922-ii-sT5"/>
                             <constraint firstItem="iph-Ga-30M" firstAttribute="top" secondItem="TLb-wd-mU4" secondAttribute="top" id="Fil-pI-4mU"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="TLb-wd-mU4" secondAttribute="trailing" constant="100" id="H51-UX-Vbr"/>
@@ -149,12 +148,16 @@
                             <constraint firstItem="7g3-aq-XS9" firstAttribute="trailing" secondItem="b4V-hO-84A" secondAttribute="trailing" id="X9r-rW-f9K"/>
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerX" secondItem="b4V-hO-84A" secondAttribute="centerX" id="fv1-Tf-nMY"/>
                             <constraint firstItem="7g3-aq-XS9" firstAttribute="bottom" secondItem="7TL-Qo-3sd" secondAttribute="top" id="ht5-7J-6q1"/>
+                            <constraint firstItem="TLb-wd-mU4" firstAttribute="centerY" secondItem="7g3-aq-XS9" secondAttribute="centerY" id="jBR-MF-Fih"/>
                             <constraint firstItem="bhP-zY-vPK" firstAttribute="centerY" secondItem="b4V-hO-84A" secondAttribute="centerY" id="jhR-qk-3n4"/>
-                            <constraint firstItem="7g3-aq-XS9" firstAttribute="top" secondItem="TLb-wd-mU4" secondAttribute="bottom" constant="-28" id="slD-DM-QFI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZnC-Ad-0ug" secondAttribute="trailing" constant="5" id="wLK-zN-Do0"/>
                             <constraint firstItem="b4V-hO-84A" firstAttribute="leading" secondItem="V0J-WW-dSU" secondAttribute="leading" id="yVX-Id-0bC"/>
                             <constraint firstItem="ZnC-Ad-0ug" firstAttribute="top" secondItem="oOU-WS-wy6" secondAttribute="bottom" constant="5" id="ywF-Si-S8j"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="hLf-hG-RYW" appends="YES" id="CJZ-zf-73e"/>
+                            <outletCollection property="gestureRecognizers" destination="oI5-g5-9cb" appends="YES" id="VBw-hX-3Vp"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="b4V-hO-84A" id="Bxo-YK-KH6"/>
@@ -175,6 +178,11 @@
                         <action selector="recognizeSwipe:" destination="qBd-So-Ecf" id="e23-19-X32"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="TAx-UQ-zqt">
+                    <connections>
+                        <action selector="recognizeTap:" destination="qBd-So-Ecf" id="bqH-ac-ybD"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="72.413793103448285"/>
         </scene>

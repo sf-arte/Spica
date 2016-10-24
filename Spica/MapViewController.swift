@@ -65,6 +65,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
+        if let ivc = segue.source as? ImageViewController, let photo = ivc.photo {
+            mapView.selectAnnotation(photo, animated: true)
+        }
     }
     
     // 長押しを検知した時経路検索をする
@@ -117,11 +120,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// Annotationが選択された時の処理
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let photo = view.annotation as? Photo {
-            if photo.urls.originalImageURL != nil || photo.urls.largeImageURL != nil {
+            view.layer.borderColor = UIColor(displayP3Red: 0.0, green: 0.6, blue: 1.0, alpha: 1.0).cgColor
+            view.layer.borderWidth = 2
+            
+            if view.window != nil && (photo.urls.originalImageURL != nil || photo.urls.largeImageURL != nil) {
                 performSegue(withIdentifier: ShowImageSegueIdentifier, sender: view)
             }
         }
-        mapView.deselectAnnotation(view.annotation, animated: false)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if view.annotation is Photo {
+            view.layer.borderColor = UIColor.white.cgColor
+            view.layer.borderWidth = 1
+        }
     }
     
     /// overlayの描画
