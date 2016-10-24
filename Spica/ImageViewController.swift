@@ -141,6 +141,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         fetchingURL = url
         spinner?.startAnimating()
+        
         DispatchQueue.global(qos: .userInitiated).async {
             var contentsOfURL : Data? = nil
             do {
