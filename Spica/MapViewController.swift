@@ -70,16 +70,25 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    @IBAction func unwindAndDrawRoute(segue: UIStoryboardSegue) {
+        if let ivc = segue.source as? ImageViewController, let photo = ivc.photo {
+            mapView.selectAnnotation(photo, animated: true)
+            
+            drawRoute(from: mapView.userLocation, to: photo, animated: true)
+        }
+    }
+
+    
     // 長押しを検知した時経路検索をする
     @IBAction func recognizeLongPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state != .began {
-            return
-        }
-        
-        let location = sender.location(in: mapView)
-        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
-        
-        drawRoute(from: mapView.userLocation.coordinate, to: coordinate)
+//        if sender.state != .began {
+//            return
+//        }
+//        
+//        let location = sender.location(in: mapView)
+//        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
+//        
+//        drawRoute(from: mapView.userLocation.coordinate, to: coordinate)
         
     }
     
@@ -165,6 +174,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let leftBottomCoordinate = MKCoordinateForMapPoint(leftBottom)
         let rightTopCoordinate = MKCoordinateForMapPoint(rightTop)
         
+        self.mapView.removeOverlays(self.mapView.overlays)
         mapView.removeAnnotations(mapView.annotations)
         
         flickr?.getPhotos(leftBottom: leftBottomCoordinate, rightTop: rightTopCoordinate, count: 50, text: text) {
@@ -204,17 +214,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     ///
     /// - parameter source: 経路の出発地点
     /// - parameter dest:   経路の目的地
-    private func drawRoute(from source: Coordinates, to dest: Coordinates) {
-        let sourcePlacemark = MKPlacemark(coordinate: source)
-        let destPlacemark = MKPlacemark(coordinate: dest)
+    /// - parameter animated: 経路全体をアニメーション表示するか
+    private func drawRoute(from source: MKAnnotation, to dest: MKAnnotation, animated: Bool) {
+        let sourcePlacemark = MKPlacemark(coordinate: source.coordinate)
+        let destPlacemark = MKPlacemark(coordinate: dest.coordinate)
         
-        let source = MKMapItem(placemark: sourcePlacemark)
-        let dest = MKMapItem(placemark: destPlacemark)
+        let sourceItem = MKMapItem(placemark: sourcePlacemark)
+        let destItem = MKMapItem(placemark: destPlacemark)
         
         let request = MKDirectionsRequest()
         
-        request.source = source
-        request.destination = dest
+        request.source = sourceItem
+        request.destination = destItem
         request.requestsAlternateRoutes = false
         request.transportType = .walking
         
@@ -231,9 +242,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             
             self.mapView.removeOverlays(self.mapView.overlays)
-            self.mapView.add(response.routes[0].polyline)
+            
+            if let polyline = response.routes.first?.polyline {
+                self.mapView.add(polyline)
+                
+                if animated {
+                    self.mapView.showAnnotations([source, dest], animated: true)
+                }
+            }
             
         }
+        
     }
 
     override func viewDidLoad() {

@@ -64,6 +64,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     
+    
+    
     /// MARK: メソッド
     
     override func viewDidLoad() {
