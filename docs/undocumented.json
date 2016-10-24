@@ -3,15 +3,71 @@
     {
       "file": "/Users/fujino/Documents/swift/Spica/Spica/AppDelegate.swift",
       "line": 13,
+      "symbol": "log",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/AppDelegate.swift",
+      "line": 26,
       "symbol": "AppDelegate",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
-      "line": 190,
-      "symbol": "printLog(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
+      "line": 38,
+      "symbol": "Flickr.OAuthParams.consumerKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
+      "line": 39,
+      "symbol": "Flickr.OAuthParams.consumerSecret",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
+      "line": 40,
+      "symbol": "Flickr.OAuthParams.requestTokenURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
+      "line": 41,
+      "symbol": "Flickr.OAuthParams.authorizeURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
+      "line": 42,
+      "symbol": "Flickr.OAuthParams.accessTokenURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
+      "line": 44,
+      "symbol": "Flickr.OAuthParams.init(path:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Flickr.swift",
+      "line": 202,
+      "symbol": "Flickr.decode(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/ImageViewController.swift",
+      "line": 11,
+      "symbol": "ImageViewController",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
@@ -19,6 +75,34 @@
       "line": 12,
       "symbol": "MapViewController",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
+      "line": 54,
+      "symbol": "Photo.init(id:owner:ownerName:iconURL:largeURL:originalURL:photoTitle:coordinate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
+      "line": 67,
+      "symbol": "Photo.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Photo.swift",
+      "line": 71,
+      "symbol": "Photo.subtitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/fujino/Documents/swift/Spica/Spica/Utility.swift",
+      "line": 13,
+      "symbol": "==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     }
   ],

@@ -14,7 +14,7 @@
     <a title="Flickr Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (82% documented)</p>
+        <p><a href="../index.html"> Docs</a> (55% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -34,15 +34,13 @@
                 <a href="../Classes/Flickr.html">Flickr</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Flickr/Coordinates.html">– Coordinates</a>
+                <a href="../Classes/Flickr.html#/s:VC5Spica6Flickr11OAuthParams">– OAuthParams</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Structs.html">Structs</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/Photo.html">Photo</a>
+                <a href="../Classes/Photo.html">Photo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Photo/URLHolder.html">– URLHolder</a>
               </li>
             </ul>
           </li>
@@ -74,9 +72,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:VC5Spica6Flickr11Coordinates"></a>
-                    <a name="//apple_ref/swift/Struct/Coordinates" class="dashAnchor"></a>
-                    <a class="token" href="#/s:VC5Spica6Flickr11Coordinates">Coordinates</a>
+                    <a name="/s:VC5Spica6Flickr11OAuthParams"></a>
+                    <a name="//apple_ref/swift/Struct/OAuthParams" class="dashAnchor"></a>
+                    <a class="token" href="#/s:VC5Spica6Flickr11OAuthParams">OAuthParams</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -84,15 +82,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>緯度経度を組にした座標</p>
+                        <p>OAuth認証に必要なパラメータ</p>
 
-                        <a href="../Classes/Flickr/Coordinates.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Coordinates</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">OAuthParams</span></code></pre>
 
                         </div>
                       </div>
@@ -113,9 +110,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC5Spica6FlickrcFT_S0_"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC5Spica6FlickrcFT_S0_">init()</a>
+                    <a name="/s:FC5Spica6FlickrcFT6paramsVS0_11OAuthParams_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(params:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Spica6FlickrcFT6paramsVS0_11OAuthParams_S0_">init(params:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -130,7 +127,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">params</span><span class="p">:</span> <span class="kt"><a href="../Classes/Flickr.html#/s:VC5Spica6Flickr11OAuthParams">OAuthParams</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -151,9 +148,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC5Spica6Flickr9authorizeFT_Sb"></a>
+                    <a name="/s:FC5Spica6Flickr9authorizeFT_T_"></a>
                     <a name="//apple_ref/swift/Method/authorize()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC5Spica6Flickr9authorizeFT_Sb">authorize()</a>
+                    <a class="token" href="#/s:FC5Spica6Flickr9authorizeFT_T_">authorize()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -164,21 +161,16 @@
                         <p>flickrのユーザーアカウントを表示して、アプリの認証をする。認証を既にしていた場合は処理を行わない。
 成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。</p>
 
-<p>TODO: 失敗した場合の処理。</p>
+<p>TODO: 失敗した場合の処理</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">authorize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">authorize</span><span class="p">()</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>成功したかどうかを返す。認証を既にしていた場合、trueを返す。</p>
-
                       </div>
                     </section>
                   </div>
@@ -186,9 +178,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC5Spica6Flickr9getPhotosFT11coordinatesVS0_11Coordinates8accuracySi7handlerFGSaVS_5Photo_T__T_"></a>
-                    <a name="//apple_ref/swift/Method/getPhotos(coordinates:accuracy:handler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC5Spica6Flickr9getPhotosFT11coordinatesVS0_11Coordinates8accuracySi7handlerFGSaVS_5Photo_T__T_">getPhotos(coordinates:accuracy:handler:)</a>
+                    <a name="/s:FC5Spica6Flickr9getPhotosFT10leftBottomVSC22CLLocationCoordinate2D8rightTopS1_5countSi4textGSqSS_7handlerFGSaCS_5Photo_T__T_"></a>
+                    <a name="//apple_ref/swift/Method/getPhotos(leftBottom:rightTop:count:text:handler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Spica6Flickr9getPhotosFT10leftBottomVSC22CLLocationCoordinate2D8rightTopS1_5countSi4textGSqSS_7handlerFGSaCS_5Photo_T__T_">getPhotos(leftBottom:rightTop:count:text:handler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,7 +197,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">getPhotos</span><span class="p">(</span><span class="nv">coordinates</span><span class="p">:</span> <span class="kt"><a href="../Classes/Flickr/Coordinates.html">Coordinates</a></span><span class="p">,</span> <span class="nv">accuracy</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt"><a href="../Structs/Photo.html">Photo</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">getPhotos</span><span class="p">(</span><span class="nv">leftBottom</span><span class="p">:</span> <span class="kt">Coordinates</span><span class="p">,</span> <span class="nv">rightTop</span><span class="p">:</span> <span class="kt">Coordinates</span><span class="p">,</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt"><a href="../Classes/Photo.html">Photo</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -216,12 +208,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>coordinates</em>
+                                <em>leftBottom</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>写真を検索する際の中心座標。</p>
+                                  <p>写真を検索する範囲の左下の座標</p>
 
                                 </div>
                               </td>
@@ -229,12 +221,51 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>accuracy</em>
+                                <em>rightTop</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>検索する範囲の広さを1〜16で指定する。値が大きいほど狭くなる。</p>
+                                  <p>写真を検索する範囲の右上の座標</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>count</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>1回に取得する件数。500件まで</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>パースしたデータに対して実行する処理</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>text</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>検索する文字列</p>
 
                                 </div>
                               </td>
@@ -250,7 +281,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">Suita Fujino</a>. All rights reserved. (Last updated: 2016-10-04)</p>
+          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">Suita Fujino</a>. All rights reserved. (Last updated: 2016-10-24)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
