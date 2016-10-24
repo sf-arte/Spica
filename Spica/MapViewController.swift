@@ -255,7 +255,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 self.routeDurationLabel.text = "\(distance) \(route.expectedTravelTime.string)"
                 
                 if animated {
-                    self.mapView.showAnnotations([source, dest], animated: true)
+                    let boundingRect = route.polyline.boundingMapRect
+                    let rect = MKMapRectInset(boundingRect, -boundingRect.size.width / 10.0, -boundingRect.size.height / 10.0)
+                    self.mapView.setVisibleMapRect(rect, animated: true)
                 }
             }
         }
