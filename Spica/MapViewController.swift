@@ -196,20 +196,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// - parameter photos:     Photoの配列
     /// - parameter completion: 完了後に行う処理
     private func fetchImages(photos: [Photo], completion: @escaping () -> ()) {
+        let group = DispatchGroup()
+        
         let queue = DispatchQueue.global(qos: .userInitiated)
-        queue.async {
-            for photo in photos {
+        
+        for photo in photos {
+            queue.async(group: group) {
                 if let url = photo.urls.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
                     photo.iconImage = UIImage(data: iconImageData, scale: 2.0)
                 } else {
                     log?.warning("Couldn't fetch an icon image.")
                 }
             }
-            
-            DispatchQueue.main.async {
-                completion()
-            }
         }
+        
+        group.notify(queue: DispatchQueue.main, execute: completion)
     }
     
     /// 経路を描画する。
