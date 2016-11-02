@@ -50,9 +50,25 @@ class SpicaUITests: XCTestCase {
         
         app.buttons["Route Button"].tap()
         
-        let predicate = NSPredicate(format: "label != ''")
-        expectation(for: predicate, evaluatedWith: app.staticTexts["Route Label"].label, handler: nil)
+        let predicate = NSPredicate(format: "label != ' '")
+        expectation(for: predicate, evaluatedWith: app.staticTexts.element, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testImageView() {
+        let app = XCUIApplication()
+        
+        search()
+        
+        let annotations = app.otherElements.matching(NSPredicate(format: "label CONTAINS '東京'"))
+        annotations.element(boundBy: 1).tap()
+        
+        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element
+        element.swipeRight()
+        element.swipeLeft()
+        app.buttons["×"].tap()
+        
+        XCTAssert(app.otherElements.element(matching: NSPredicate(format: "label CONTAINS '東京'")).exists)
     }
     
     func search() {
