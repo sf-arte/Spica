@@ -64,6 +64,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     
+    @IBOutlet weak var routeButton: UIButton! {
+        didSet {
+            routeButton.accessibilityIdentifier = "Route Button"
+        }
+    }
+    
     /// MARK: メソッド
     
     override func viewDidLoad() {

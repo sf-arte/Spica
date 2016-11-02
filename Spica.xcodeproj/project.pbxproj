@@ -20,11 +20,19 @@
 		6BE5A0E31DAE102D008CB92B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */; };
 		6BE5A1031DAE25E1008CB92B /* FlickrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE5A1021DAE25E1008CB92B /* FlickrTests.swift */; };
 		6BE5A1051DAE3640008CB92B /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE5A1041DAE3640008CB92B /* XCGLogger.framework */; };
+		6BEFBCD41DC861B40054014B /* SpicaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEFBCD31DC861B40054014B /* SpicaUITests.swift */; };
 		6BF8ACFF1DACA66C00DDCC0F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		6BE5A0F91DAE221D008CB92B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BCE2D041D9A2CCA000CB38D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BCE2D0B1D9A2CCA000CB38D;
+			remoteInfo = Spica;
+		};
+		6BEFBCD61DC861B40054014B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6BCE2D041D9A2CCA000CB38D /* Project object */;
 			proxyType = 1;
@@ -60,6 +68,9 @@
 		6BE5A0F81DAE221D008CB92B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BE5A1021DAE25E1008CB92B /* FlickrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrTests.swift; sourceTree = "<group>"; };
 		6BE5A1041DAE3640008CB92B /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
+		6BEFBCD11DC861B40054014B /* SpicaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpicaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BEFBCD31DC861B40054014B /* SpicaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpicaUITests.swift; sourceTree = "<group>"; };
+		6BEFBCD51DC861B40054014B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BF8ACFE1DACA66C00DDCC0F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +86,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6BE5A0F11DAE221D008CB92B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BEFBCCE1DC861B40054014B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -108,6 +126,7 @@
 			children = (
 				6BCE2D0E1D9A2CCB000CB38D /* Spica */,
 				6BE5A0F51DAE221D008CB92B /* SpicaTests */,
+				6BEFBCD21DC861B40054014B /* SpicaUITests */,
 				6BCE2D0D1D9A2CCB000CB38D /* Products */,
 				6B6878FA1D9A37BC00C7BE5D /* Frameworks */,
 			);
@@ -118,6 +137,7 @@
 			children = (
 				6BCE2D0C1D9A2CCB000CB38D /* Spica.app */,
 				6BE5A0F41DAE221D008CB92B /* SpicaTests.xctest */,
+				6BEFBCD11DC861B40054014B /* SpicaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,6 +175,15 @@
 				6BE5A0F81DAE221D008CB92B /* Info.plist */,
 			);
 			path = SpicaTests;
+			sourceTree = "<group>";
+		};
+		6BEFBCD21DC861B40054014B /* SpicaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6BEFBCD31DC861B40054014B /* SpicaUITests.swift */,
+				6BEFBCD51DC861B40054014B /* Info.plist */,
+			);
+			path = SpicaUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +225,24 @@
 			productReference = 6BE5A0F41DAE221D008CB92B /* SpicaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6BEFBCD01DC861B40054014B /* SpicaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6BEFBCDA1DC861B40054014B /* Build configuration list for PBXNativeTarget "SpicaUITests" */;
+			buildPhases = (
+				6BEFBCCD1DC861B40054014B /* Sources */,
+				6BEFBCCE1DC861B40054014B /* Frameworks */,
+				6BEFBCCF1DC861B40054014B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6BEFBCD71DC861B40054014B /* PBXTargetDependency */,
+			);
+			name = SpicaUITests;
+			productName = SpicaUITests;
+			productReference = 6BEFBCD11DC861B40054014B /* SpicaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -223,6 +270,12 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6BCE2D0B1D9A2CCA000CB38D;
 					};
+					6BEFBCD01DC861B40054014B = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = DB5FPWGTP9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6BCE2D0B1D9A2CCA000CB38D;
+					};
 				};
 			};
 			buildConfigurationList = 6BCE2D071D9A2CCA000CB38D /* Build configuration list for PBXProject "Spica" */;
@@ -240,6 +293,7 @@
 			targets = (
 				6BCE2D0B1D9A2CCA000CB38D /* Spica */,
 				6BE5A0F31DAE221D008CB92B /* SpicaTests */,
+				6BEFBCD01DC861B40054014B /* SpicaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +311,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6BE5A0F21DAE221D008CB92B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BEFBCCF1DC861B40054014B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,6 +367,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6BEFBCCD1DC861B40054014B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BEFBCD41DC861B40054014B /* SpicaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -313,6 +382,11 @@
 			isa = PBXTargetDependency;
 			target = 6BCE2D0B1D9A2CCA000CB38D /* Spica */;
 			targetProxy = 6BE5A0F91DAE221D008CB92B /* PBXContainerItemProxy */;
+		};
+		6BEFBCD71DC861B40054014B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6BCE2D0B1D9A2CCA000CB38D /* Spica */;
+			targetProxy = 6BEFBCD61DC861B40054014B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -495,6 +569,32 @@
 			};
 			name = Release;
 		};
+		6BEFBCD81DC861B40054014B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = DB5FPWGTP9;
+				INFOPLIST_FILE = SpicaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.SpicaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Spica;
+			};
+			name = Debug;
+		};
+		6BEFBCD91DC861B40054014B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = DB5FPWGTP9;
+				INFOPLIST_FILE = SpicaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.SpicaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Spica;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -524,6 +624,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6BEFBCDA1DC861B40054014B /* Build configuration list for PBXNativeTarget "SpicaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BEFBCD81DC861B40054014B /* Debug */,
+				6BEFBCD91DC861B40054014B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

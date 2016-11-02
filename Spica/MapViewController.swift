@@ -34,7 +34,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    @IBOutlet weak var routeDurationLabel: UILabel!
+    @IBOutlet weak var routeDurationLabel: UILabel! {
+        didSet {
+            routeDurationLabel.accessibilityIdentifier = "Route Label"
+        }
+    }
     
     private let flickr : Flickr? = {
         guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
@@ -267,7 +271,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// 経路を削除
     private func clearRoute() {
         mapView.removeOverlays(mapView.overlays)
-        routeDurationLabel.text = ""
+        routeDurationLabel.text = " "
     }
     
 

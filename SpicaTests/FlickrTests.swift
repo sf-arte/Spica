@@ -67,7 +67,7 @@ class FlickrTests: XCTestCase {
     func testGetPhotosShouldFail(leftBottom: Coordinates, rightTop: Coordinates) {
         let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() failed")
         
-        flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10){
+        flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10, text: nil){
             photos in
             if(photos.isEmpty) {
                 getPhotosExpectation?.fulfill()
@@ -80,7 +80,7 @@ class FlickrTests: XCTestCase {
     func testGetPhotosShouldSuccess(leftBottom: Coordinates, rightTop: Coordinates) {
         let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() succeeded")
         
-        flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10){
+        flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10, text: nil){
             photos in
             if(!photos.isEmpty) {
                 getPhotosExpectation?.fulfill()
