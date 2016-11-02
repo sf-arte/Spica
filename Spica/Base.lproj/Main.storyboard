@@ -185,6 +185,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="routeButton" destination="R0i-hb-b33" id="ElL-Lb-Z9c"/>
                         <outlet property="scrollView" destination="b4V-hO-84A" id="Bxo-YK-KH6"/>
                         <outlet property="spinner" destination="bhP-zY-vPK" id="XyE-9L-dW6"/>
                         <outlet property="titleLabel" destination="TLb-wd-mU4" id="O9P-8G-8lt"/>
