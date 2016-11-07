@@ -136,7 +136,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    /// 画像の取得
+    /// 画像を非同期で取得
     private func fetchImage() {
         guard let url = photo?.urls.originalImageURL ?? photo?.urls.largeImageURL else { return }
         // 既に取得していたらそれを使う

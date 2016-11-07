@@ -21,6 +21,7 @@ class UtilityTests: XCTestCase {
     }
     
     func testTimeIntervalToString() {
+        XCTAssertEqual(TimeInterval(-6000.0).string, nil)
         XCTAssertEqual(TimeInterval(0.0).string, "0分")
         XCTAssertEqual(TimeInterval(2400.0).string, "40分")
         XCTAssertEqual(TimeInterval(3599.99).string, "59分")

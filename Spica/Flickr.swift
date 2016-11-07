@@ -76,7 +76,7 @@ class Flickr {
     }
     
     // MARK: Lifecycle
-    /// イニシャライザ
+    
     init(params: OAuthParams, loadsToken : Bool = true) {
         self.params = params
         
@@ -91,6 +91,7 @@ class Flickr {
         oauthToken = nil
         let defaults = UserDefaults.standard
         
+        // OAuth Tokenのデータがすでにあればそれを読み込み
         if let token = defaults.object(forKey: KeyForUserDefaults.oauthToken.rawValue) as? String,
             let secret = defaults.object(forKey: KeyForUserDefaults.oauthTokenSecret.rawValue) as? String,
             loadsToken {

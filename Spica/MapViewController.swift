@@ -49,7 +49,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return flickr
     }()
     
-    /// 検索している中心座標
+    /// マルチスレッドでannotationsを追加する際の照合用
     private var searchingCoordinate = Coordinates()
     
     private let locationManager = CLLocationManager()
@@ -61,7 +61,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         getPhotos(text: searchBar.text)
     }
     
-    /// 現在地を表示する
+    /// 現在地ボタンに対応するメソッド
     @IBAction func showCurrentLocation(_ sender: UIBarButtonItem) {
         locationManager.requestWhenInUseAuthorization()
         
@@ -144,6 +144,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    /// Annotationの選択が外れた時の処理
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if view.annotation is Photo {
             view.layer.borderColor = UIColor.white.cgColor
@@ -151,7 +152,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    /// overlayの描画
+    /// overlayの描画処理
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.lineWidth = 2.0
@@ -257,7 +258,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 distanceFormatter.units = .metric
                 let distance = distanceFormatter.string(fromDistance: route.distance)
                 
-                self.routeDurationLabel.text = "\(distance) \(route.expectedTravelTime.string)"
+                if let time = route.expectedTravelTime.string {
+                    self.routeDurationLabel.text = "\(distance) \(time)"
+                }
                 
                 if animated {
                     let boundingRect = route.polyline.boundingMapRect
@@ -268,7 +271,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    /// 経路を削除
     private func clearRoute() {
         mapView.removeOverlays(mapView.overlays)
         routeDurationLabel.text = " "

@@ -15,8 +15,9 @@ func == (lhs: Coordinates, rhs: Coordinates) -> Bool{
 }
 
 extension TimeInterval {
-    public var string: String {
+    public var string: String? {
         get {
+            if self < 0.0 { return nil }
             let interval = Int(self)
             let dates = interval / 86400
             let hours = (interval % 86400) / 3600
