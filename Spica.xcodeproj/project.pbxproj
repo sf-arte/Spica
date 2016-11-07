@@ -12,6 +12,7 @@
 		6B07FBC51D9BCACE007B7FFC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC41D9BCACE007B7FFC /* Photo.swift */; };
 		6B36553F1DB48D2800F8F455 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36553E1DB48D2800F8F455 /* ImageViewController.swift */; };
 		6B6879071D9A3BDD00C7BE5D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */; };
+		6BA63B6C1DD0399B00FF6658 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B07FBBE1D9B848D007B7FFC /* OAuthSwift.framework */; };
 		6BCE2D101D9A2CCB000CB38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCE2D0F1D9A2CCB000CB38D /* AppDelegate.swift */; };
 		6BCE2D151D9A2CCB000CB38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D131D9A2CCB000CB38D /* Main.storyboard */; };
 		6BCE2D171D9A2CCB000CB38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCE2D161D9A2CCB000CB38D /* Assets.xcassets */; };
@@ -89,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BA63B6C1DD0399B00FF6658 /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +546,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DB5FPWGTP9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SpicaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.SpicaTests";
@@ -560,6 +566,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DB5FPWGTP9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SpicaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.arte-inc.SpicaTests";
@@ -632,6 +642,7 @@
 				6BEFBCD91DC861B40054014B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

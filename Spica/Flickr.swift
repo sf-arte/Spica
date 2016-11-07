@@ -40,6 +40,11 @@ class Flickr {
         let requestTokenURL = "https://www.flickr.com/services/oauth/request_token"
         let authorizeURL = "https://www.flickr.com/services/oauth/authorize"
         let accessTokenURL = "https://www.flickr.com/services/oauth/access_token"
+        
+        init(key: String, secret: String) {
+            consumerKey = key
+            consumerSecret = secret
+        }
 
         init?(path: String) {
             do {
@@ -72,7 +77,7 @@ class Flickr {
     
     // MARK: Lifecycle
     /// イニシャライザ
-    init(params: OAuthParams) {
+    init(params: OAuthParams, loadsToken : Bool = true) {
         self.params = params
         
         oauthSwift = OAuth1Swift(
@@ -87,7 +92,8 @@ class Flickr {
         let defaults = UserDefaults.standard
         
         if let token = defaults.object(forKey: KeyForUserDefaults.oauthToken.rawValue) as? String,
-            let secret = defaults.object(forKey: KeyForUserDefaults.oauthTokenSecret.rawValue) as? String {
+            let secret = defaults.object(forKey: KeyForUserDefaults.oauthTokenSecret.rawValue) as? String,
+            loadsToken {
             oauthSwift.client = OAuthSwiftClient(
                 consumerKey: params.consumerKey,
                 consumerSecret: params.consumerSecret,
@@ -104,8 +110,6 @@ class Flickr {
     /**
      flickrのユーザーアカウントを表示して、アプリの認証をする。認証を既にしていた場合は処理を行わない。
      成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。
-     
-     TODO: 失敗した場合の処理
      */
     
     func authorize() {
@@ -116,10 +120,19 @@ class Flickr {
             success: { [weak self] credential, response, parameters in
                 self?.oauthToken = OAuthToken(token: credential.oauthToken, secret: credential.oauthTokenSecret)
             },
-            failure: { error in
-                log?.error(error.localizedDescription)
+            failure: { [weak self] error in
+                self?.onAuthorizationFailed(error: error)
             }
         )
+    }
+    
+    /**
+    認証失敗時の処理
+ 
+    - parameter error: エラー内容
+    */
+    func onAuthorizationFailed(error: OAuthSwiftError) {
+        log?.error(error.localizedDescription)
     }
     
     

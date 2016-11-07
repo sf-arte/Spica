@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import OAuthSwift
 @testable import Spica
 
 class FlickrTests: XCTestCase {
@@ -28,6 +29,29 @@ class FlickrTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+    }
+    
+    func testAuthorize() {
+        let authorizeExpectation = self.expectation(description: "authorize() failed")
+        
+        class FlickrMock: Flickr {
+            let expectation : XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+                super.init(params: OAuthParams(key: "", secret: ""), loadsToken: false)
+            }
+            
+            override func onAuthorizationFailed(error: OAuthSwiftError) {
+                expectation.fulfill()
+            }
+        }
+        
+        let flickr = FlickrMock(expectation: authorizeExpectation)
+        
+        flickr.authorize()
+        
+        waitForExpectations(timeout: 10, handler: nil)
     }
     
     func testGetPhotosInvalidCoordinate() {
@@ -65,12 +89,12 @@ class FlickrTests: XCTestCase {
     }
     
     func testGetPhotosShouldFail(leftBottom: Coordinates, rightTop: Coordinates) {
-        let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() failed")
+        let getPhotosExpectation = self.expectation(description: "getPhotos() failed")
         
         flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10, text: nil){
             photos in
             if(photos.isEmpty) {
-                getPhotosExpectation?.fulfill()
+                getPhotosExpectation.fulfill()
             }
         }
         
@@ -78,12 +102,12 @@ class FlickrTests: XCTestCase {
     }
         
     func testGetPhotosShouldSuccess(leftBottom: Coordinates, rightTop: Coordinates) {
-        let getPhotosExpectation: XCTestExpectation? = self.expectation(description: "getPhotos() succeeded")
+        let getPhotosExpectation = self.expectation(description: "getPhotos() succeeded")
         
         flickr.getPhotos(leftBottom: leftBottom, rightTop: rightTop, count: 10, text: nil){
             photos in
             if(!photos.isEmpty) {
-                getPhotosExpectation?.fulfill()
+                getPhotosExpectation.fulfill()
             }
         }
         
