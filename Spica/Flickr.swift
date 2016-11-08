@@ -186,22 +186,37 @@ class Flickr {
             parameters["text"] = text
         }
         
-        oauthSwift.client.get(apiURL,
-            parameters: parameters,
-            headers: nil,
-            success: { data, response in
-                let json = JSON(data: data)
+        if ProcessInfo().arguments.index(of: "--mockserver") != nil {
+            guard let url = URL(string: "http://127.0.0.1:4567/rest/") else { return }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
             
-                let status = json["stat"].stringValue
-                if status != "ok" {
-                    log?.error(json["message"].stringValue)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    let json = JSON(data: data)
+                    
+                    handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
                 }
-                handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
-            },
-            failure: { error in
-                log?.error(error)
-            }
-        )
+            }.resume()
+        } else {
+            oauthSwift.client.get(apiURL,
+                parameters: parameters,
+                headers: nil,
+                success: { data, response in
+                    let json = JSON(data: data)
+            
+                    let status = json["stat"].stringValue
+                    if status != "ok" {
+                        log?.error(json["message"].stringValue)
+                    }
+                    handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
+                },
+                failure: { error in
+                    log?.error(error)
+                }
+            )
+        }
     }
     
 }

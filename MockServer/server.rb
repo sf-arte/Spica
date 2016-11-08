@@ -2,7 +2,7 @@
 require 'sinatra'
 
 get '/rest/' do
-    '{ "photos": { "page": 1, "pages": "1", "perpage": 3, "total": "3", 
+    '{ "photos": { "page": 1, "pages": "1", "perpage": 3, "total": "3",
         "photo": [
                { "id": "1111111111",
                  "owner": "222222222@N22",
