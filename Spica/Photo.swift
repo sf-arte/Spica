@@ -50,17 +50,18 @@ class Photo : NSObject{
     var iconImage : UIImage? = nil
     
     
-    
     init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, originalURL: String, photoTitle: String, coordinate: Coordinates) {
-        self.urls = URLHolder(originalImageURL: URL(string: originalURL), largeImageURL: URL(string: largeURL), iconImageURL: URL(string: iconURL))
+        self.urls = URLHolder(
+            originalImageURL: URL(string: originalURL),
+            largeImageURL: URL(string: largeURL),
+            iconImageURL: URL(string: iconURL)
+        )
         self.id = id
         self.owner = owner
         self.ownerName = ownerName
         self.photoTitle = photoTitle
         self.coordinate = coordinate
     }
-
-    
 }
 
 extension Photo : MKAnnotation {

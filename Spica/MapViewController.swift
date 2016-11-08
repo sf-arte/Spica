@@ -11,12 +11,12 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
     
-    /// MARK: 定数
+    // MARK: 定数
     
     private let AnnotationViewReuseIdentifier = "photo"
     private let ShowImageSegueIdentifier = "Show Image"
     
-    /// MARK: プロパティ
+    // MARK: - プロパティ
     
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
@@ -54,7 +54,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     private let locationManager = CLLocationManager()
     
-    /// MARK: メソッド
+    // MARK: - メソッド
     
     /// 検索ボタンに対応するメソッド
     @IBAction func search(_ sender: UIBarButtonItem) {
@@ -218,7 +218,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         group.notify(queue: DispatchQueue.main, execute: completion)
     }
     
-    /// 経路を描画する。
+    /// 経路を計算して描画する。
     ///
     /// - parameter source: 経路の出発地点
     /// - parameter dest:   経路の目的地
@@ -282,6 +282,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         locationManager.delegate = self
         
+        // 地図の初期表示位置の設定
         let center = CLLocationCoordinate2DMake(35.681382 , 139.766084)
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         mapView.region = MKCoordinateRegionMake(center, span)

@@ -16,7 +16,8 @@ import SwiftyJSON
  */
 
 class Flickr {
-    // MARK: - 定数
+    
+    // MARK: 定数
     /// Flickr APIのURL
     private let apiURL = "https://api.flickr.com/services/rest"
     
@@ -75,7 +76,7 @@ class Flickr {
         }
     }
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     
     init(params: OAuthParams, loadsToken : Bool = true) {
         self.params = params
@@ -106,13 +107,10 @@ class Flickr {
         }
     }
     
-    // MARK: メソッド
+    // MARK: - メソッド
     
-    /**
-     flickrのユーザーアカウントを表示して、アプリの認証をする。認証を既にしていた場合は処理を行わない。
-     成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。
-     */
-    
+    /// flickrのユーザーアカウントを表示して、アプリの認証をする。認証を既にしていた場合は処理を行わない。
+    /// 成功した場合、consumer keyとconsumer secretを利用してOAuth tokenを取得する。
     func authorize() {
         if oauthToken != nil { return }
         
@@ -127,29 +125,25 @@ class Flickr {
         )
     }
     
-    /**
-    認証失敗時の処理
- 
-    - parameter error: エラー内容
-    */
+    /// 認証失敗時の処理
+    ///
+    /// - parameter error: エラー内容
     func onAuthorizationFailed(error: OAuthSwiftError) {
         log?.error(error.localizedDescription)
     }
     
     
     
-    /**
-     指定された座標周辺の写真をJSON形式で取得し、パースする。パースしたデータはPhotoクラスの配列に格納される。
-     
-     TODO: 失敗時の処理。未認証時認証。
-     
-     - parameter leftBottom: 写真を検索する範囲の左下の座標
-     - parameter rightTop: 写真を検索する範囲の右上の座標
-     - parameter count: 1回に取得する件数。500件まで
-     - parameter handler: パースしたデータに対して実行する処理
-     - parameter text: 検索する文字列
-    */
     
+    /// 指定された座標周辺の写真をJSON形式で取得し、パースする。パースしたデータはPhotoクラスの配列に格納される。
+    ///
+    /// TODO: 失敗時の処理。未認証時認証。
+    ///
+    /// - parameter leftBottom: 写真を検索する範囲の左下の座標
+    /// - parameter rightTop: 写真を検索する範囲の右上の座標
+    /// - parameter count: 1回に取得する件数。500件まで
+    /// - parameter handler: パースしたデータに対して実行する処理
+    /// - parameter text: 検索する文字列
     func getPhotos(leftBottom: Coordinates, rightTop: Coordinates, count: Int, text: String?, handler: @escaping ([Photo]) -> ()) {
         // 東経180度線を跨ぐ時の処理。180度線で2つに分割する
         if leftBottom.longitude > rightTop.longitude {

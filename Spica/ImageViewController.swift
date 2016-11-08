@@ -10,7 +10,7 @@ import UIKit
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
     
-    /// MARK: プロパティ
+    // MARK: プロパティ
     
     var photo : Photo? {
         didSet {
@@ -70,7 +70,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    /// MARK: メソッド
+    // MARK: - メソッド
     
     override func viewDidLoad() {
         super.viewDidLoad()
