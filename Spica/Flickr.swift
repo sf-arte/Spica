@@ -186,6 +186,7 @@ class Flickr {
             parameters["text"] = text
         }
         
+        // UIテスト時はモックサーバーを使う
         if ProcessInfo().arguments.index(of: "--mockserver") != nil {
             guard let url = URL(string: "http://127.0.0.1:4567/rest/") else { return }
 

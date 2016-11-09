@@ -8,6 +8,7 @@
 
 import XCTest
 import OAuthSwift
+import SwiftyJSON
 @testable import Spica
 
 class FlickrTests: XCTestCase {
@@ -99,6 +100,37 @@ class FlickrTests: XCTestCase {
         )
     }
     
+    func testDecode() {
+        let elements : [String : Any] = [
+            "id": "1111111111",
+            "owner": "222222222@N22",
+            "secret": "1a2b3c4d5",
+            "server": "1234",
+            "farm": 1,
+            "title": "東京",
+            "ownername": "hoge",
+            "latitude": 35.681382,
+            "longitude": 139.766084,
+            "url_o": "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_o.jpg",
+            "url_sq": "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_s.jpg",
+            "url_l" : "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_z_d.jpg"
+        ]
+        
+        let json = JSON(elements)
+        
+        let photo = Flickr.decode(from: json)
+        
+        XCTAssertEqual(photo.id, 1111111111)
+        XCTAssertEqual(photo.owner, "222222222@N22")
+        XCTAssertEqual(photo.title, "東京")
+        XCTAssertEqual(photo.ownerName, "hoge")
+        XCTAssertEqual(photo.coordinate.latitude, 35.681382)
+        XCTAssertEqual(photo.coordinate.longitude, 139.766084)
+        XCTAssertEqual(photo.urls.originalImageURL, URL(string: "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_o.jpg"))
+        XCTAssertEqual(photo.urls.iconImageURL, URL(string: "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_s.jpg"))
+        XCTAssertEqual(photo.urls.largeImageURL, URL(string: "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_z_d.jpg"))
+    }
+
     func testGetPhotosShouldFail(leftBottom: Coordinates, rightTop: Coordinates) {
         let getPhotosExpectation = self.expectation(description: "getPhotos() failed")
         
