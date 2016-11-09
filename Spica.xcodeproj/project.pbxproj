@@ -10,6 +10,7 @@
 		6B07FBC11D9B8629007B7FFC /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC01D9B8629007B7FFC /* Flickr.swift */; };
 		6B07FBC31D9BA508007B7FFC /* key.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B07FBC21D9BA508007B7FFC /* key.txt */; };
 		6B07FBC51D9BCACE007B7FFC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07FBC41D9BCACE007B7FFC /* Photo.swift */; };
+		6B1BE15C1DD313550050D4B4 /* ImageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1BE15B1DD313550050D4B4 /* ImageViewControllerTests.swift */; };
 		6B36553F1DB48D2800F8F455 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36553E1DB48D2800F8F455 /* ImageViewController.swift */; };
 		6B6879071D9A3BDD00C7BE5D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6879061D9A3BDD00C7BE5D /* MapViewController.swift */; };
 		6B8FB66E1DD1B159001BD911 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */; };
@@ -50,6 +51,7 @@
 		6B07FBC01D9B8629007B7FFC /* Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickr.swift; sourceTree = "<group>"; };
 		6B07FBC21D9BA508007B7FFC /* key.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.txt; sourceTree = SOURCE_ROOT; };
 		6B07FBC41D9BCACE007B7FFC /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		6B1BE15B1DD313550050D4B4 /* ImageViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewControllerTests.swift; sourceTree = "<group>"; };
 		6B36553E1DB48D2800F8F455 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		6B61679A1DA220860009E6F8 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		6B6878FB1D9A37BC00C7BE5D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		6BE5A0F51DAE221D008CB92B /* SpicaTests */ = {
 			isa = PBXGroup;
 			children = (
+				6B1BE15B1DD313550050D4B4 /* ImageViewControllerTests.swift */,
 				6BA63B6D1DD05BEF00FF6658 /* UtilityTests.swift */,
 				6BE5A1021DAE25E1008CB92B /* FlickrTests.swift */,
 				6BE5A0F81DAE221D008CB92B /* Info.plist */,
@@ -372,6 +375,7 @@
 			files = (
 				6BA63B6E1DD05BEF00FF6658 /* UtilityTests.swift in Sources */,
 				6BE5A1031DAE25E1008CB92B /* FlickrTests.swift in Sources */,
+				6B1BE15C1DD313550050D4B4 /* ImageViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
