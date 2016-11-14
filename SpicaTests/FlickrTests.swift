@@ -55,7 +55,7 @@ class FlickrTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testGetPhotosInvalidCoordinate() {
+    func testGetPhotosWithInvalidCoordinate() {
         testGetPhotosShouldFail(
             leftBottom: Coordinates(latitude: 35.0, longitude: 135.0),
             rightTop:   Coordinates(latitude: 34.0, longitude: 136.0)
@@ -70,7 +70,7 @@ class FlickrTests: XCTestCase {
         )
     }
     
-    func testGetPhotosValidCoordinate() {
+    func testGetPhotosWithValidCoordinate() {
         testGetPhotosShouldSuccess(
             leftBottom: Coordinates(latitude: 35.0, longitude: 135.0),
             rightTop:   Coordinates(latitude: 36.0, longitude: 136.0)

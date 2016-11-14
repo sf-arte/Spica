@@ -40,7 +40,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    private let flickr : Flickr? = {
+    var flickr : Flickr? = {
         guard let path = Bundle.main.path(forResource: "key", ofType: "txt") else { return nil }
         guard let params = Flickr.OAuthParams(path: path) else { return nil }
         
