@@ -169,7 +169,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     /// Flickr.getPhotos()を呼び、サムネイル画像を地図上にプロットする
-    private func getPhotos(text: String? = nil) {
+    /// 
+    /// - parameter text: 検索する文字列
+    /// - parameter completion: 完了時の処理
+    func getPhotos(text: String? = nil, completion: (() -> ())? = nil) {
         spinner?.startAnimating()
         let centerCoordinate = mapView.centerCoordinate
         searchingCoordinate = centerCoordinate
@@ -191,6 +194,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     strongSelf.mapView.addAnnotations(photos)
                     strongSelf.mapView.showAnnotations(photos, animated: true)
                     strongSelf.spinner.stopAnimating()
+                    
+                    completion?()
                 }
             }
         }
@@ -207,11 +212,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         for photo in photos {
             queue.async(group: group) {
-                if let url = photo.urls.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
-                    photo.iconImage = UIImage(data: iconImageData, scale: 2.0)
-                } else {
-                    log?.warning("Couldn't fetch an icon image.")
-                }
+                photo.fetchIconImage()
             }
         }
         
@@ -223,7 +224,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// - parameter source: 経路の出発地点
     /// - parameter dest:   経路の目的地
     /// - parameter animated: 経路全体をアニメーション表示するか
-    private func drawRoute(from source: MKAnnotation, to dest: MKAnnotation, animated: Bool) {
+    /// - parameter completion: 完了時の処理
+    func drawRoute(from source: MKAnnotation, to dest: MKAnnotation, animated: Bool, completion: (() -> ())? = nil) {
         let sourcePlacemark = MKPlacemark(coordinate: source.coordinate)
         let destPlacemark = MKPlacemark(coordinate: dest.coordinate)
         
@@ -268,6 +270,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.mapView.setVisibleMapRect(rect, animated: true)
                 }
             }
+            
+            completion?()
         }
     }
     
@@ -283,7 +287,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.delegate = self
         
         // 地図の初期表示位置の設定
-        let center = CLLocationCoordinate2DMake(35.681382 , 139.766084)
+        let center = CLLocationCoordinate2DMake(35.681382, 139.766084)
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         mapView.region = MKCoordinateRegionMake(center, span)
     

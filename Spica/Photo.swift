@@ -47,7 +47,7 @@ class Photo : NSObject{
     let coordinate : Coordinates
     
     /// アイコンの画像
-    var iconImage : UIImage? = nil
+    var iconImage : UIImage?
     
     
     init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, originalURL: String, photoTitle: String, coordinate: Coordinates) {
@@ -61,6 +61,15 @@ class Photo : NSObject{
         self.ownerName = ownerName
         self.photoTitle = photoTitle
         self.coordinate = coordinate
+    }
+
+    /// アイコンの画像をflickrのサーバーから取得する
+    func fetchIconImage() {
+        if let url = urls.iconImageURL, let iconImageData = try? Data(contentsOf: url) {
+            iconImage = UIImage(data: iconImageData, scale: 2.0)
+        } else {
+            log?.warning("Couldn't fetch an icon image.")
+        }
     }
 }
 

@@ -54,5 +54,59 @@ class MapViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
+    func testGetPhotos() {
+        XCTAssertNotNil(mapViewController)
+        guard let mapViewController = mapViewController else { fatalError() }
+        
+        let expectation = self.expectation(description: "getPhotos() completed.")
+        
+        mapViewController.getPhotos() {
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 20, handler: nil)
+        
+        XCTAssert(mapViewController.mapView.annotations.count > 1)
+    }
+    
+    func testDrawRoute() {
+        XCTAssertNotNil(mapViewController?.mapView)
+        guard let mapView = mapViewController?.mapView else { fatalError() }
+        
+        let photos = [
+            Photo(
+                id: 1,
+                owner: "hoge",
+                ownerName: "hoge",
+                iconURL: "hoge",
+                largeURL: "hoge",
+                originalURL: "hoge",
+                photoTitle: "hoge",
+                coordinate: Coordinates(latitude: 35.0, longitude: 135.0)
+            ),
+            Photo(
+                id: 1,
+                owner: "hoge",
+                ownerName: "hoge",
+                iconURL: "hoge",
+                largeURL: "hoge",
+                originalURL: "hoge",
+                photoTitle: "hoge",
+                coordinate: Coordinates(latitude: 35.1, longitude: 135.1)
+            )
+        ]
+        
+        mapView.addAnnotations(photos)
+        
+        let expectation = self.expectation(description: "drawRoute() completed.")
+        
+        mapViewController?.drawRoute(from: mapView.annotations[0], to: mapView.annotations[1], animated: true) {
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertFalse(mapView.overlays.isEmpty)
+    }
  
 }
