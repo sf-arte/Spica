@@ -18,18 +18,24 @@ class MapViewControllerTests: XCTestCase {
         }
         
         override func getPhotos(leftBottom: Coordinates, rightTop: Coordinates, count: Int, text: String?, handler: @escaping ([Photo]) -> ()) {
-            guard let url = URL(string: "http://127.0.0.1:4567/rest/") else { return }
+            var photos: [Photo] = []
             
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            for i in 1...3 {
+                let photo = Photo(
+                    id: 1,
+                    owner: "222222222@N22",
+                    ownerName: "hoge",
+                    iconURL: "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_s.jpg",
+                    largeURL: "hoge",
+                    originalURL: "https://farm6.staticflickr.com/5819/30423578985_bb26300a4c_z_d.jpg",
+                    photoTitle: "hoge\(i)",
+                    coordinate: Coordinates(latitude: 35.6813, longitude: 139.7660 + Double(i) * 0.01)
+                )
+                
+                photos.append(photo)
+            }
             
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data {
-                    let json = JSON(data: data)
-                    
-                    handler(json["photos"]["photo"].arrayValue.map{ Flickr.decode(from: $0) })
-                }
-            }.resume()
+            handler(photos)
         }
     }
     
