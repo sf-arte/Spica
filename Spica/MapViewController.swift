@@ -84,21 +84,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
 
-    
-    // 長押しを検知した時経路検索をする
-    @IBAction func recognizeLongPress(_ sender: UILongPressGestureRecognizer) {
-//        if sender.state != .began {
-//            return
-//        }
-//        
-//        let location = sender.location(in: mapView)
-//        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
-//        
-//        drawRoute(from: mapView.userLocation.coordinate, to: coordinate)
-        
-    }
-    
-
     /// 位置情報の更新に成功した時呼ばれる
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = manager.location {
@@ -172,7 +157,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// 
     /// - parameter text: 検索する文字列
     /// - parameter completion: 完了時の処理
-    func getPhotos(text: String? = nil, completion: (() -> ())? = nil) {
+    func getPhotos(text: String?, completion: (() -> ())? = nil) {
         spinner?.startAnimating()
         let centerCoordinate = mapView.centerCoordinate
         searchingCoordinate = centerCoordinate
@@ -204,7 +189,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// PhotoクラスのiconImageURLで指定された画像を取ってくる。
     ///
     /// - parameter photos:     Photoの配列
-    /// - parameter completion: 完了後に行う処理
+    /// - parameter completion: 完了時の処理
     private func fetchImages(photos: [Photo], completion: @escaping () -> ()) {
         let group = DispatchGroup()
         

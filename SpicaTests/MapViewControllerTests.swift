@@ -60,7 +60,7 @@ class MapViewControllerTests: XCTestCase {
         
         let expectation = self.expectation(description: "getPhotos() completed.")
         
-        mapViewController.getPhotos() {
+        mapViewController.getPhotos(text: nil) {
             expectation.fulfill()
         }
         
