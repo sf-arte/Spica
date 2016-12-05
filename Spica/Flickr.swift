@@ -217,7 +217,6 @@ class Flickr {
             )
         }
     }
-    
 }
 
 extension Flickr {

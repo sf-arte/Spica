@@ -61,7 +61,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.accessibilityIdentifier = "Title Label"
+        }
+    }
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var routeButton: UIButton! {

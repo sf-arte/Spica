@@ -9,6 +9,8 @@
 import XCTest
 
 class SpicaUITests: XCTestCase {
+    
+    let photoAccessibilityIdentifier = "Photo"
         
     override func setUp() {
         super.setUp()
@@ -30,16 +32,14 @@ class SpicaUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testTextSearch() {
+    func testSearch() {
         let app = XCUIApplication()
         
-        let predicate = NSPredicate(format: "label CONTAINS '東京'")
-        
-        XCTAssert(!app.otherElements.element(matching: predicate).exists)
+        XCTAssert(!app.otherElements[photoAccessibilityIdentifier].exists)
         
         search()
         
-        XCTAssert(app.otherElements.element(matching: predicate).exists)
+        XCTAssert(app.otherElements[photoAccessibilityIdentifier].exists)
     }
     
     func testRouteFinding() {
@@ -47,7 +47,8 @@ class SpicaUITests: XCTestCase {
         
         search()
         
-        let annotations = app.otherElements.matching(NSPredicate(format: "label CONTAINS '東京'"))
+        XCTAssert(app.otherElements[photoAccessibilityIdentifier].exists)
+        let annotations = app.otherElements.matching(identifier: photoAccessibilityIdentifier)
         annotations.element(boundBy: 1).tap()
         
         app.buttons["Route Button"].tap()
@@ -62,24 +63,26 @@ class SpicaUITests: XCTestCase {
         
         search()
         
-        let annotations = app.otherElements.matching(NSPredicate(format: "label CONTAINS '東京'"))
+        XCTAssert(app.otherElements[photoAccessibilityIdentifier].exists)
+        let annotations = app.otherElements.matching(identifier: photoAccessibilityIdentifier)
         annotations.element(boundBy: 1).tap()
         
+        let title = app.staticTexts["Title Label"].label
         let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element
+        
         element.swipeRight()
+        XCTAssertNotEqual(title, app.staticTexts["Title Label"].label)
         element.swipeLeft()
+        XCTAssertEqual(title, app.staticTexts["Title Label"].label)
         app.buttons["×"].tap()
         
-        XCTAssert(app.otherElements.element(matching: NSPredicate(format: "label CONTAINS '東京'")).exists)
+        XCTAssert(app.otherElements[photoAccessibilityIdentifier].exists)
     }
     
     func search() {
         let app = XCUIApplication()
        
-        let searchField = app.searchFields.element
-        searchField.tap()
-        searchField.typeText("東京駅")
-        app.keyboards.buttons["Search"].tap()
+        app.toolbars.buttons["Search"].tap()
         
         let notExists = NSPredicate(format: "exists == false")
         expectation(for: notExists, evaluatedWith: app.activityIndicators.element, handler: nil)

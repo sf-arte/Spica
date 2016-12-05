@@ -112,6 +112,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             // 見た目の調整
             view.layer.borderColor = UIColor.white.cgColor
             view.layer.borderWidth = 1
+            
+            view.accessibilityIdentifier = "Photo"
         }
         
         return view
@@ -297,6 +299,4 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.searchBar.resignFirstResponder()
         }
     }
-
-
 }

@@ -49,7 +49,6 @@ class Photo : NSObject{
     /// アイコンの画像
     var iconImage : UIImage?
     
-    
     init(id: Int, owner: String, ownerName: String, iconURL: String, largeURL: String, originalURL: String, photoTitle: String, coordinate: Coordinates) {
         self.urls = URLHolder(
             originalImageURL: URL(string: originalURL),
@@ -61,6 +60,8 @@ class Photo : NSObject{
         self.ownerName = ownerName
         self.photoTitle = photoTitle
         self.coordinate = coordinate
+        
+        super.init()
     }
 
     /// アイコンの画像をflickrのサーバーから取得する
