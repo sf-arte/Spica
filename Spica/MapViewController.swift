@@ -272,12 +272,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
 
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         
         // 地図の初期表示位置の設定
         let center = CLLocationCoordinate2DMake(35.681382, 139.766084)
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         mapView.region = MKCoordinateRegionMake(center, span)
-    
     }
 
     override func didReceiveMemoryWarning() {
