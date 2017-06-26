@@ -190,8 +190,8 @@ class Flickr {
         oauthSwift.client.get(url,
             parameters: parameters,
             headers: nil,
-            success: { data, response in
-                let json = JSON(data: data)
+            success: { response in
+                let json = JSON(data: response.data)
         
                 let status = json["stat"].stringValue
                 if status != "ok" {
